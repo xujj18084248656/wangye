@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太空舱模块化充电宝 · 徐家靖作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F5F6F8;
+            color: #1a1a1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        nav {
+            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+        }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a; }
+        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
+        .nav-links a { position: relative; }
+        .nav-links a:hover { color: #111827; }
+
+        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
+
+        /* 全屏封面 */
+        .fullscreen-cover { width: 100%; height: 100vh; background: #e5e7eb; overflow: hidden; }
+        .fullscreen-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .featured-project { padding: 60px 40px; border-radius: 24px; margin: 80px 0; }
+        .featured-project h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+        .featured-project .sub-desc { color: #6b7280; max-width: 650px; margin-bottom: 40px; font-size: 16px; line-height: 1.6; }
+
+        .feature-row { display: flex; gap: 40px; align-items: center; margin-bottom: 40px; flex-wrap: wrap; }
+        .feature-row.reverse { flex-direction: row-reverse; }
+        .feature-img { flex: 1; min-width: 300px; height: 320px; border-radius: 16px; overflow: hidden; background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
+        .feature-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .feature-img:hover img { transform: scale(1.03); }
+        .feature-text { flex: 1; min-width: 250px; }
+        .feature-text h4 { font-size: 22px; font-weight: 600; margin-bottom: 12px; color: #1a1a1a; }
+        .feature-text p { font-size: 15px; color: #4b5563; line-height: 1.8; }
+
+        .full-width-img { width: 100%; height: 420px; border-radius: 16px; overflow: hidden; margin-bottom: 40px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
+        .full-width-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .full-width-img:hover img { transform: scale(1.02); }
+
+        .gallery-title { font-size: 24px; font-weight: 600; margin: 50px 0 24px; color: #1a1a1a; }
+        .gallery-grid { display: flex; flex-direction: column; gap: 24px; margin-bottom: 50px; width: 100%; }
+        .gallery-item { width: 100%; height: 460px; border-radius: 16px; overflow: hidden; background: #e5e7eb; border: 1px solid rgba(0,0,0,0.02); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .gallery-item:hover img { transform: scale(1.02); }
+
+        .back-btn { display: inline-block; padding: 14px 36px; background: #111; color: #fff; border-radius: 50px; font-size: 15px; transition: 0.3s; margin-top: 20px; }
+        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
+        
+        @media (max-width: 768px) {
+            .fullscreen-cover { height: 60vh; }
+            .featured-project { padding: 30px 20px; margin: 40px 0; }
+            .feature-row { flex-direction: column; height: auto; }
+            .feature-row.reverse { flex-direction: column; }
+            .feature-img { height: 240px; width: 100%; }
+            .full-width-img { height: 240px; }
+            .gallery-item { height: 260px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">XU JIAJING</div>
+        <div class="nav-links">
+            <a href="index.html">← 返回作品集</a>
+        </div>
+    </nav>
+
+    <!-- 全屏封面图 (第21张图) -->
+    <div class="fullscreen-cover">
+        <img src="images/image (21).png" alt="项目全屏封面">
+    </div>
+
+    <div class="container">
+        <div class="featured-project glass">
+            <h2>太空舱模块化充电宝</h2>
+            <p class="sub-desc">融合现代极简美学与模块化设计理念。集多功能手持风扇、5000mAh 快充充电宝于一身，分体式结构灵活适配多种生活场景。</p>
+            
+            <div class="project-media-grid">
+                <!-- 图文1 (图 1) -->
+                <div class="feature-row">
+                    <div class="feature-img"><img src="images/image (1).png" alt="拆解结构图"></div>
+                    <div class="feature-text">
+                        <h4>分体式磁吸设计</h4>
+                        <p>可拆卸电池模组与风扇模组通过磁吸触点连接。方便独立充电与替换，满足户外出行的收纳与模块化组合需求。</p>
+                    </div>
+                </div>
+
+                <!-- 图文2 (图 2) -->
+                <div class="feature-row reverse">
+                    <div class="feature-img"><img src="images/image (2).png" alt="手持使用图"></div>
+                    <div class="feature-text">
+                        <h4>轻巧便携，随身随行</h4>
+                        <p>极简流线型外观，配合硅胶挂绳设计。无论通勤、露营还是旅行，都能轻松挂载于背包或握持于手中。</p>
+                    </div>
+                </div>
+
+                <!-- 大图展示 (图 3) -->
+                <div class="full-width-img">
+                    <img src="images/image (3).png" alt="场景展示宽图">
+                </div>
+
+                <!-- 图文3 (图 4) -->
+                <div class="feature-row">
+                    <div class="feature-img"><img src="images/image (4).png" alt="手机充电图"></div>
+                    <div class="feature-text">
+                        <h4>不仅仅是风扇，更是快充宝</h4>
+                        <p>内置 5000mAh 大容量电池，支持 PD/QC 快充。不仅能为手机和耳机紧急补电，还能实现随行随充，拒绝续航焦虑。</p>
+                    </div>
+                </div>
+
+                <!-- 图文4 (图 5) -->
+                <div class="feature-row reverse">
+                    <div class="feature-img"><img src="images/image (5).png" alt="吹风场景图"></div>
+                    <div class="feature-text">
+                        <h4>强劲风力，清爽驱散</h4>
+                        <p>采用高速无刷电机与独特的涡轮扇叶设计，风力强劲且运行静音。能快速降低体感温度，是夏日户外的必备降温神器。</p>
+                    </div>
+                </div>
+
+                <!-- 15张大图瀑布流 (图 6 - 图 20) -->
+                <h3 class="gallery-title">多角度场景与产品细节展示</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="images/image (6).png" alt="展示图 6"></div>
+                    <div class="gallery-item"><img src="images/image (7).png" alt="展示图 7"></div>
+                    <div class="gallery-item"><img src="images/image (8).png" alt="展示图 8"></div>
+                    <div class="gallery-item"><img src="images/image (9).png" alt="展示图 9"></div>
+                    <div class="gallery-item"><img src="images/image (10).png" alt="展示图 10"></div>
+                    <div class="gallery-item"><img src="images/image (11).png" alt="展示图 11"></div>
+                    <div class="gallery-item"><img src="images/image (12).png" alt="展示图 12"></div>
+                    <div class="gallery-item"><img src="images/image (13).png" alt="展示图 13"></div>
+                    <div class="gallery-item"><img src="images/image (14).png" alt="展示图 14"></div>
+                    <div class="gallery-item"><img src="images/image (15).png" alt="展示图 15"></div>
+                    <div class="gallery-item"><img src="images/image (16).png" alt="展示图 16"></div>
+                    <div class="gallery-item"><img src="images/image (17).png" alt="展示图 17"></div>
+                    <div class="gallery-item"><img src="images/image (18).png" alt="展示图 18"></div>
+                    <div class="gallery-item"><img src="images/image (19).png" alt="展示图 19"></div>
+                    <div class="gallery-item"><img src="images/image (20).png" alt="展示图 20"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="index.html" class="back-btn">返回作品集</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

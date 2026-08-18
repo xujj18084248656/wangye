@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>徐家靖 · 工业设计作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- 重置与基础 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F5F6F8;
+            color: #1a1a1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* --- 核心毛玻璃效果 --- */
+        .glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        /* --- 排版工具与颜色 --- */
+        .section-title { margin-bottom: 40px; }
+        .section-title .sub {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6b7280;
+            display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
+        }
+        .section-title .sub::before, .section-title .sub::after {
+            content: ''; flex: 1; height: 1px; background: #e5e7eb;
+        }
+        .section-title h2 { font-size: 36px; font-weight: 700; color: #111827; }
+        .section-title p { font-size: 16px; color: #6b7280; margin-top: 8px; }
+
+        /* ==================================================== */
+        /* === 核心更改：导航栏绝对定位居中 === */
+        /* ==================================================== */
+        nav {
+            position: sticky; top: 0;
+            display: flex;
+            justify-content: center; /* 让 nav-links 在水平方向居中 */
+            align-items: center;
+            padding: 20px 0;
+            background: rgba(244, 245, 248, 0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            z-index: 100;
+        }
+        .logo {
+            position: absolute;
+            left: 40px; /* 将 Logo 固定在最左侧 40px 处 */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a;
+        }
+        .nav-links {
+            display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563;
+        }
+        .nav-links a { position: relative; }
+        .nav-links a:hover { color: #111827; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #002FA7; transition: width 0.4s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        /* ==================================================== */
+
+        /* ================= 首页 Hero ================= */
+        #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .bg-glow-hero {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100vw; height: 80vh;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 47, 167, 0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 50% 30%, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
+            filter: blur(80px); z-index: 0; animation: pulseGlow 6s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow { 0% { opacity: 0.7; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.05); } }
+        .hero-title-large { font-size: clamp(80px, 12vw, 140px); font-weight: 900; letter-spacing: -4px; color: #002FA7; line-height: 1; margin-bottom: 10px; text-shadow: 0 0 40px rgba(0, 47, 167, 0.1); }
+        .hero-name { font-size: clamp(24px, 3vw, 36px); font-weight: 500; color: #1a1a1a; letter-spacing: 2px; margin-top: -20px; }
+        .hero-desc { max-width: 600px; font-size: 16px; color: #666; line-height: 1.6; margin: 10px 0 30px; text-align: center; }
+        .hero-container { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .btn-group { display: flex; gap: 16px; align-items: center; }
+        .btn { display: inline-block; padding: 14px 36px; border-radius: 50px; font-size: 15px; font-weight: 500; transition: 0.3s; cursor: pointer; text-decoration: none; }
+        .btn-light { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); color: #111; border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); }
+        .btn-light:hover { transform: translateY(-2px) scale(1.02); background: #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+        .btn-dark { background: #111; color: #fff; border: 1px solid #111; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
+        .btn-dark:hover { transform: translateY(-2px) scale(1.02); background: #2a2a2a; border-color: #2a2a2a; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+
+        /* ================= 关于我 About ================= */
+        #about { padding: 60px 0 100px; background: #F5F6F8; }
+        .about-layout { display: flex; gap: 60px; align-items: flex-start; }
+        .profile-sidebar { flex: 0 0 340px; position: sticky; top: 100px; align-self: flex-start; padding: 40px 30px; border-radius: 20px; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.7); }
+        .profile-img { width: 100%; max-width: 240px; height: 320px; margin: 0 auto 24px; border-radius: 12px; overflow: hidden; background: #f3f4f6; display: flex; justify-content: center; align-items: center; }
+        .profile-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+        .profile-sidebar h2 { font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+        .profile-sidebar .title { font-size: 15px; color: #6b7280; margin-bottom: 30px; }
+        .profile-info-list { display: flex; flex-direction: column; gap: 16px; }
+        .profile-info-item { display: flex; justify-content: space-between; font-size: 14px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
+        .profile-info-item .label { color: #9ca3af; font-weight: 500; letter-spacing: 1px; }
+        .profile-info-item .value { color: #1f2937; font-weight: 500; text-align: right; }
+
+        .main-content { flex: 1; display: flex; flex-direction: column; gap: 60px; }
+        .design-philosophy p { color: #4b5563; line-height: 1.8; margin-bottom: 16px; font-size: 15px; }
+        
+        .edu-item { background: #ffffff; padding: 24px 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
+        .edu-left h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: #111827; }
+        .edu-left p { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
+        .edu-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .edu-tags span { background: #f3f4f6; color: #4b5563; padding: 4px 12px; border-radius: 4px; font-size: 13px; }
+        .edu-right { font-size: 14px; color: #9ca3af; font-weight: 500; white-space: nowrap; margin-top: 4px; }
+
+        .exp-item { background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 20px; }
+        .exp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+        .exp-header h3 { font-size: 18px; font-weight: 600; color: #111827; }
+        .exp-header .date { font-size: 14px; color: #9ca3af; font-weight: 500; }
+        .exp-role { font-size: 14px; color: #6b7280; margin-bottom: 16px; }
+        .exp-duties { list-style: none; padding-left: 0; color: #4b5563; font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
+        .exp-duties li { position: relative; padding-left: 18px; }
+        .exp-duties li::before { content: "•"; position: absolute; left: 0; color: #002FA7; font-weight: bold; }
+        .exp-achievement { background: rgba(0, 47, 167, 0.04); padding: 12px 16px; border-radius: 8px; border-left: 3px solid #002FA7; color: #374151; font-size: 14px; line-height: 1.6; }
+        .exp-achievement strong { color: #002FA7; font-weight: 600; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .skill-cat { background: #ffffff; padding: 20px 24px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
+        .skill-cat h4 { font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px; }
+        .skill-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 6px; color: #4b5563; }
+        .skill-bar-track { width: 100%; height: 6px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
+        .skill-bar-fill { height: 100%; background: #002FA7; border-radius: 4px; width: 0%; transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+        /* ================= 作品集 Projects ================= */
+        #projects { padding: 100px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+        .project-card { border-radius: 16px; overflow: hidden; transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0, 47, 167, 0.15); box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.06); }
+        .project-img { height: 220px; overflow: hidden; background: #e5e7eb; }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover .project-img img { transform: scale(1.06); }
+        .project-info { padding: 28px 24px 32px; }
+        .project-info h3 { font-size: 20px; margin-bottom: 6px; font-weight: 600; color: #1a1a1a; }
+        .project-info p { font-size: 14px; color: #4b5563; margin-bottom: 16px; line-height: 1.6; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tags span { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.6); color: #374151; padding: 4px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; transition: all 0.3s ease; }
+        .tags span:hover { background: rgba(0, 47, 167, 0.1); border-color: #002FA7; color: #002FA7; }
+
+        /* ================= 联系 Contact ================= */
+        #contact { padding: 100px 0 60px; text-align: center; }
+        .contact-info { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 32px; }
+        .contact-item { padding: 24px 40px; border-radius: 16px; transition: all 0.4s ease; }
+        .contact-item:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.9); }
+        .contact-item .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
+        .contact-item .value { font-size: 18px; font-weight: 500; margin-top: 4px; color: #111827; }
+        .footer-note { margin-top: 60px; font-size: 13px; color: #9ca3af; border-top: 1px solid rgba(0, 0, 0, 0.03); padding-top: 24px; }
+
+        /* ================= 通用动画 ================= */
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        /* ================= 响应式适配 ================= */
+        @media (max-width: 992px) {
+            .about-layout { flex-direction: column; }
+            .profile-sidebar { position: relative; top: 0; flex: 1; width: 100%; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .bg-glow-hero { width: 100vw; height: 30vh; }
+            .nav-links { display: none; }
+            .btn-group { flex-direction: column; width: 100%; padding: 0 20px; }
+            .btn { width: 100%; text-align: center; }
+            .edu-item { flex-direction: column; }
+            .exp-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .contact-info { flex-direction: column; gap: 24px; align-items: center; }
+            .contact-item { text-align: center; width: 100%; padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== 导航栏 ========== -->
+    <nav>
+        <div class="logo">XU JIAJING</div>
+        <div class="nav-links">
+            <a href="#hero">首页</a>
+            <a href="#about">关于我</a>
+            <a href="#projects">作品集</a>
+            <a href="#contact">联系</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="bg-glow-hero"></div>
+        <div class="hero-container animate-on-scroll is-visible">
+            <h1 class="hero-title-large">PORTFOLIO</h1>
+            <h2 class="hero-name">徐家靖 · 工业设计师</h2>
+            <p class="hero-desc">专注于消费电子与IP授权产品设计，具备从前期市场调研、ID设计到量产落地的全流程实战经验。善于运用AI技术高效赋能创意。</p>
+            <div class="btn-group">
+                <a href="#about" class="btn btn-light">了解我</a>
+                <a href="#projects" class="btn btn-dark">查看作品</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container about-layout">
+            <aside class="profile-sidebar animate-on-scroll is-visible">
+                <div class="profile-img"><img src="profile.jpg" alt="徐家靖"></div>
+                <h2>徐家靖</h2>
+                <p class="title">产品设计 / 工业设计师</p>
+                <div class="profile-info-list">
+                    <div class="profile-info-item"><span class="label">PHONE</span><span class="value">18084248656</span></div>
+                    <div class="profile-info-item"><span class="label">EMAIL</span><span class="value">2604437203@qq.com</span></div>
+                    <div class="profile-info-item"><span class="label">CITY</span><span class="value">深圳</span></div>
+                    <div class="profile-info-item"><span class="label">EXPERIENCE</span><span class="value">3年</span></div>
+                    <div class="profile-info-item"><span class="label">EDUCATION</span><span class="value">本科</span></div>
+                </div>
+            </aside>
+
+            <div class="main-content">
+                <div class="section-title animate-on-scroll is-visible">
+                    <div class="sub"><span>ABOUT ME</span></div>
+                    <h2>关于我</h2>
+                    <p>三年工业设计经验，专注消费电子产品从概念到量产的全流程设计</p>
+                </div>
+
+                <div class="design-philosophy animate-on-scroll">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #111827;">设计理念</h3>
+                    <p>三年消费电子类产品设计经验，擅长产品 ID 迭代与新品研发。具备从市场调研、概念设计、建模渲染到手板验证、量产落地的全流程推进能力。</p>
+                    <p>熟悉 AI 设计工具链，累计完成 30+ 套商业宣发渲染项目，多款产品实现模具落地并申请外观专利。</p>
+                </div>
+
+                <div class="animate-on-scroll">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">教育经历</h3>
+                    <div class="edu-item glass">
+                        <div class="edu-left">
+                            <h3>南华大学 · 产品设计 · 本科</h3>
+                            <p>GPA 3.28（专业前10%）</p>
+                            <div class="edu-tags">
+                                <span>产品形态设计 (优秀)</span>
+                                <span>创意产品设计 (优秀)</span>
+                                <span>人机工程学 (优秀)</span>
+                                <span>产品创新与研发 (良好)</span>
+                            </div>
+                        </div>
+                        <div class="edu-right">2019.08 - 2023.06</div>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">工作经历</h3>
+                    <div class="exp-item glass">
+                        <div class="exp-header"><h3>量子科技股份有限公司（台企）</h3><span class="date">2025.03 - 2026.09</span></div>
+                        <div class="exp-role">工业设计师 · 消费电子</div>
+                        <ul class="exp-duties">
+                            <li>产品 ID 迭代设计，负责现有爆款产品的外观升级与改版；</li>
+                            <li>新品项目开发，从概念呈现、3D 建模到渲染出图的全流程设计；</li>
+                            <li>跟踪项目实现量产落地，对接工厂，跟进模具与手板；</li>
+                            <li>产品宣传渲染图渲染，输出高质量商业宣发图。</li>
+                        </ul>
+                        <div class="exp-achievement"><strong>成果：</strong>完成 2 款爆款产品的 ID 迭代升级，销售增长；研发设计 2 款产品，全程对接工厂实现落地量产；商业宣发渲染项目达 30+ 套。</div>
+                    </div>
+                    <div class="exp-item glass">
+                        <div class="exp-header"><h3>鑫喜实业有限公司</h3><span class="date">2024.01 - 2025.01</span></div>
+                        <div class="exp-role">产品设计师 · 消费电子</div>
+                        <ul class="exp-duties">
+                            <li>公司新品研发设计，包括前期市场调研、中期建模渲染出图、后期结构跟进；</li>
+                            <li>手板测试、模具跟进，确保设计方案可制造性；</li>
+                            <li>产品详情页设计制作，配合电商上架。</li>
+                        </ul>
+                        <div class="exp-achievement"><strong>成果：</strong>所设计了 7 款新品成功模具落地上市，国内外均有售卖；多款产品成功申请外观设计专利；完成迪士尼、三丽鸥、哆啦A梦等IP品牌送审授权。</div>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">专业技能</h3>
+                    <div class="skills-grid">
+                        <div class="skill-cat">
+                            <h4>三维建模</h4>
+                            <div class="skill-row"><span>Rhino</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
+                            <div class="skill-row"><span>Creo</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="80%"></div></div>
+                        </div>
+                        <div class="skill-cat">
+                            <h4>渲染表现</h4>
+                            <div class="skill-row"><span>KeyShot</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
+                            <div class="skill-row"><span>Blender</span><span>70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="70%"></div></div>
+                        </div>
+                        <div class="skill-cat">
+                            <h4>平面设计</h4>
+                            <div class="skill-row"><span>Photoshop</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
+                            <div class="skill-row"><span>Illustrator</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="80%"></div></div>
+                        </div>
+                        <div class="skill-cat">
+                            <h4>AI 设计</h4>
+                            <div class="skill-row"><span>ComfyUI</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="85%"></div></div>
+                            <div class="skill-row"><span>Gemini / GPT</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll"><div class="sub"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">近期项目</p></h2>
+            <div class="grid">
+                <!-- 项目一：太空舱模块化充电宝 -->
+                <div class="project-card glass animate-on-scroll delay-1">
+                    <div class="project-img">
+                        <img src="images/image (21).png" alt="太空舱充电宝">
+                    </div>
+                    <div class="project-info">
+                        <h3>太空舱模块化充电宝</h3>
+                        <p>融合现代极简美学与模块化设计理念。分体式结构、5000mAh 快充，灵活适配多场景。</p>
+                        <div class="tags"><span>消费电子</span><span>模块化</span><span>量产落地</span></div>
+                        <a href="project1.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    </div>
+                </div>
+                
+                <!-- 项目二：YZ潮流便携剃须刀 -->
+                <div class="project-card glass animate-on-scroll delay-2">
+                    <div class="project-img">
+                        <img src="images/image (22).png" alt="YZ剃须刀">
+                    </div>
+                    <div class="project-info">
+                        <h3>YZ潮流便携剃须刀</h3>
+                        <p>街头潮流美学与实用功能融合。模块化磁吸设计，可拆解清洁，搭配挂绳便捷携带。</p>
+                        <div class="tags"><span>个护产品</span><span>模块化设计</span><span>量产落地</span></div>
+                        <a href="project2.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- 项目三：磁吸暖手宝 -->
+                <div class="project-card glass animate-on-scroll delay-3">
+                    <div class="project-img">
+                        <img src="images/image (23).png" alt="磁吸暖手宝">
+                    </div>
+                    <div class="project-info">
+                        <h3>磁吸暖手宝</h3>
+                        <p>磁吸分体式设计，单只 5000mAh 电源，四档控温，高级金属质感多色可选。</p>
+                        <div class="tags"><span>个护产品</span><span>磁吸设计</span><span>多色可选</span></div>
+                        <a href="project3.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll" style="text-align: center; border-left: none; padding-left: 0;">
+                <div class="sub" style="justify-content: center;"><span>GET IN TOUCH</span></div><p style="margin-top:0;">联系方式</p>
+            </h2>
+            <div class="contact-info">
+                <div class="contact-item glass animate-on-scroll delay-1"><div class="label">联系电话</div><div class="value">180 8424 8656</div></div>
+                <div class="contact-item glass animate-on-scroll delay-2"><div class="label">电子邮箱</div><div class="value">2604437203@qq.com</div></div>
+                <div class="contact-item glass animate-on-scroll delay-3"><div class="label">意向城市</div><div class="value">广东 · 深圳</div></div>
+                <div class="contact-item glass animate-on-scroll delay-4"><div class="label">期望薪资</div><div class="value">13k - 15k</div></div>
+            </div>
+            <div class="footer-note">© 2026 徐家靖 · Designed with Minimalism</div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId && targetId !== '#') {
+                        const target = document.querySelector(targetId);
+                        if(target) target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                        const fills = entry.target.querySelectorAll('.skill-bar-fill');
+                        fills.forEach(fill => {
+                            const targetWidth = fill.getAttribute('data-width');
+                            if(targetWidth) {
+                                setTimeout(() => { fill.style.width = targetWidth; }, 300);
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
