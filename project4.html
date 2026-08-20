@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>其他落地项目展示 · 徐家靖作品集</title>
+    
+    <!-- 引入 Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F5F6F8;
+            color: #1a1a1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+        /* 顶部导航 */
+        nav {
+            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
+            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+        }
+        .logo {
+            position: absolute; left: 40px; top: 50%; transform: translateY(-50%);
+            font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a;
+        }
+        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
+        .nav-links a { position: relative; }
+        .nav-links a:hover { color: #111827; }
+
+        /* 毛玻璃容器 */
+        .glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        /* 主容器 */
+        .project-container { padding: 60px 40px; border-radius: 24px; margin: 40px 0 80px; }
+
+        /* 页面大标题 */
+        .page-header { text-align: center; margin-bottom: 60px; }
+        .page-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+        .page-header p { color: #6b7280; max-width: 650px; font-size: 16px; line-height: 1.6; margin: 0 auto; }
+
+        /* 6个产品板块 */
+        .product-block {
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .product-block:last-child { border-bottom: none; margin-bottom: 0; }
+
+        /* 标题与介绍 */
+        .product-header {
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 12px;
+        }
+        .product-index { font-size: 28px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px; }
+        .product-title { font-size: 24px; font-weight: 600; color: #1a1a1a; }
+        .product-desc {
+            text-align: center; font-size: 15px; color: #4b5563; line-height: 1.7;
+            margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+
+        /* ==================================================== */
+        /* === 大图轮播区域 === */
+        /* ==================================================== */
+        .carousel-wrap {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #e5e7eb;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 600px; /* 大屏端 600px 高度，视觉极致大气 */
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #e5e7eb;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 严格保持 16:9 比例铺满 */
+            display: block;
+        }
+
+        /* 返回按钮 */
+        .back-btn {
+            display: inline-block; padding: 14px 36px;
+            background: #111; color: #fff; border-radius: 50px;
+            font-size: 15px; transition: 0.3s; text-align: center;
+        }
+        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .project-container { padding: 30px 20px; }
+            .logo { left: 20px; }
+            .nav-links { display: none; }
+            .swiper { height: 320px; } /* 手机端适配比例 */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">XU JIAJING</div>
+        <div class="nav-links">
+            <a href="index.html">← 返回作品集</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="project-container glass">
+            <!-- 页面大标题 -->
+            <div class="page-header">
+                <h2>其他落地项目展示</h2>
+                <p>精选多款已量产消费电子与IP授权产品，涵盖个护、车载、家居等多元场景，体现扎实的商业落地与结构设计能力。</p>
+            </div>
+
+            <!-- 1. 便携酒精检测仪 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">01</span>
+                    <h3 class="product-title">便携酒精检测仪</h3>
+                </div>
+                <p class="product-desc">迷你手持设计，高精度电化学传感器，快速响应；采用极简的交互逻辑，一键测量，结果直观清晰，适合随身携带。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/alcohol_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/alcohol_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/alcohol_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/alcohol_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 迪士尼车载香薰 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">02</span>
+                    <h3 class="product-title">迪士尼车载香薰</h3>
+                </div>
+                <p class="product-desc">迪士尼IP授权定制车载香薰，萌趣卡通造型与汽车出风口完美结合。多款经典角色，营造沉浸式童话氛围，香气柔和持久。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/car_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/car_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/car_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/car_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 迪士尼灭蚊灯 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">03</span>
+                    <h3 class="product-title">迪士尼灭蚊灯</h3>
+                </div>
+                <p class="product-desc">结合迪士尼元素的室内物理灭蚊灯。采用UV紫光引诱与强力涡流吸入设计，无毒无味。外观圆润可爱，兼具实用功能与装饰性。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/mosquito_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/mosquito_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/mosquito_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/mosquito_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 手持制冷风扇 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">04</span>
+                    <h3 class="product-title">手持制冷风扇</h3>
+                </div>
+                <p class="product-desc">内置半导体制冷技术，不仅能吹风，更能吹出冰爽冷风。极简流线外观搭配金属质感，强风静音，是夏日户外降温利器。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/hand_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/hand_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/hand_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/hand_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 手持折叠制冷高速风扇 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">05</span>
+                    <h3 class="product-title">手持折叠制冷高速风扇</h3>
+                </div>
+                <p class="product-desc">在制冷风扇基础上增加多角度折叠功能，可手持亦可桌面使用。高速无刷电机提供强劲风量，折叠结构提升收纳便利性。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/fold_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/fold_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/fold_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/fold_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. MINI暴力风扇 -->
+            <div class="product-block">
+                <div class="product-header">
+                    <span class="product-index">06</span>
+                    <h3 class="product-title">MINI暴力风扇</h3>
+                </div>
+                <p class="product-desc">极致小巧机身，搭载高频无刷电机，风力强劲彪悍。航空铝材金属外壳，质感出色，专为追求极致性能与便携的用户打造。</p>
+                <div class="carousel-wrap">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="images/project4/mini_1.png" alt="产品图1"></div>
+                            <div class="swiper-slide"><img src="images/project4/mini_2.png" alt="产品图2"></div>
+                            <div class="swiper-slide"><img src="images/project4/mini_3.png" alt="产品图3"></div>
+                            <div class="swiper-slide"><img src="images/project4/mini_4.png" alt="产品图4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 返回主页按钮 -->
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="index.html" class="back-btn">返回作品集</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- 初始化 Swiper -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 自动为页面上所有 .mySwiper 实例化
+            document.querySelectorAll('.mySwiper').forEach((el, index) => {
+                new Swiper(el, {
+                    loop: true,             // 无限无缝循环
+                    grabCursor: true,       // 鼠标拖拽手感
+                    slidesPerView: 1,       // 每次显示1张大图
+                    spaceBetween: 16,       // 图片之间的微距
+                    speed: 600,             // 切换速度，丝滑
+                    centeredSlides: true,
+                    
+                    // ===== 核心配置：自动滚动 + 拖拽不断 =====
+                    autoplay: {
+                        delay: 3000,           // 3秒自动切换一张
+                        disableOnInteraction: false, // 鼠标拖拽后，自动播放【不会停止】
+                        pauseOnMouseEnter: true,     // 鼠标悬停在图片上时，【暂停】滚动，移开继续
+                    },
+                    
+                    keyboard: { enabled: true },
+                });
+            });
+        });
+    </script>
+</body>
+</html>
