@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业渲染展示 · 徐家靖作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F5F6F8;
+            color: #1a1a1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+        /* 顶部导航 */
+        nav {
+            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
+            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+        }
+        .logo {
+            position: absolute; left: 40px; top: 50%; transform: translateY(-50%);
+            font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a;
+        }
+        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
+        .nav-links a { position: relative; }
+        .nav-links a:hover { color: #111827; }
+
+        /* 毛玻璃容器 */
+        .glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        /* 主容器 */
+        .project-container { padding: 60px 40px; border-radius: 24px; margin: 40px 0 80px; }
+
+        /* ================= 居中页面介绍 ================= */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .page-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .page-header p {
+            color: #6b7280;
+            max-width: 800px;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 auto;
+        }
+
+        /* ================= 1X30 纵向大图展示区 ================= */
+        .render-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* 图片间距较小，视觉连贯 */
+            width: 100%;
+        }
+        .render-item {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* 严格 16:9 比例 */
+            border-radius: 12px;
+            overflow: hidden;
+            background: #e5e7eb;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .render-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 返回按钮 */
+        .back-btn {
+            display: inline-block; padding: 14px 36px;
+            background: #111; color: #fff; border-radius: 50px;
+            font-size: 15px; transition: 0.3s; text-align: center;
+        }
+        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .project-container { padding: 30px 20px; }
+            .logo { left: 20px; }
+            .nav-links { display: none; }
+            .page-header h2 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">XU JIAJING</div>
+        <div class="nav-links">
+            <a href="index.html">← 返回作品集</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="project-container glass">
+            <!-- ================= 居中主页介绍 ================= -->
+            <div class="page-header">
+                <h2>商业渲染展示</h2>
+                <p>以下渲染内容使用工具 Keyshot + Gemini/GPT/ComfyUI，利用 Keyshot 渲染器以及 AI 工具配合辅助完成，高效、高质完成商用渲染图的输出。</p>
+            </div>
+
+            <!-- ================= 1X30 纵向大图展示 ================= -->
+            <div class="render-gallery">
+                <!-- 30张大图，请按顺序命名放入 /images/project5/ 文件夹 -->
+                <div class="render-item"><img src="images/project5/render_1.png" alt="渲染图1"></div>
+                <div class="render-item"><img src="images/project5/render_2.png" alt="渲染图2"></div>
+                <div class="render-item"><img src="images/project5/render_3.png" alt="渲染图3"></div>
+                <div class="render-item"><img src="images/project5/render_4.png" alt="渲染图4"></div>
+                <div class="render-item"><img src="images/project5/render_5.png" alt="渲染图5"></div>
+                
+                <div class="render-item"><img src="images/project5/render_6.png" alt="渲染图6"></div>
+                <div class="render-item"><img src="images/project5/render_7.png" alt="渲染图7"></div>
+                <div class="render-item"><img src="images/project5/render_8.png" alt="渲染图8"></div>
+                <div class="render-item"><img src="images/project5/render_9.png" alt="渲染图9"></div>
+                <div class="render-item"><img src="images/project5/render_10.png" alt="渲染图10"></div>
+
+                <div class="render-item"><img src="images/project5/render_11.png" alt="渲染图11"></div>
+                <div class="render-item"><img src="images/project5/render_12.png" alt="渲染图12"></div>
+                <div class="render-item"><img src="images/project5/render_13.png" alt="渲染图13"></div>
+                <div class="render-item"><img src="images/project5/render_14.png" alt="渲染图14"></div>
+                <div class="render-item"><img src="images/project5/render_15.png" alt="渲染图15"></div>
+
+                <div class="render-item"><img src="images/project5/render_16.png" alt="渲染图16"></div>
+                <div class="render-item"><img src="images/project5/render_17.png" alt="渲染图17"></div>
+                <div class="render-item"><img src="images/project5/render_18.png" alt="渲染图18"></div>
+                <div class="render-item"><img src="images/project5/render_19.png" alt="渲染图19"></div>
+                <div class="render-item"><img src="images/project5/render_20.png" alt="渲染图20"></div>
+
+                <div class="render-item"><img src="images/project5/render_21.png" alt="渲染图21"></div>
+                <div class="render-item"><img src="images/project5/render_22.png" alt="渲染图22"></div>
+                <div class="render-item"><img src="images/project5/render_23.png" alt="渲染图23"></div>
+                <div class="render-item"><img src="images/project5/render_24.png" alt="渲染图24"></div>
+                <div class="render-item"><img src="images/project5/render_25.png" alt="渲染图25"></div>
+
+                <div class="render-item"><img src="images/project5/render_26.png" alt="渲染图26"></div>
+                <div class="render-item"><img src="images/project5/render_27.png" alt="渲染图27"></div>
+                <div class="render-item"><img src="images/project5/render_28.png" alt="渲染图28"></div>
+                <div class="render-item"><img src="images/project5/render_29.png" alt="渲染图29"></div>
+                <div class="render-item"><img src="images/project5/render_30.png" alt="渲染图30"></div>
+            </div>
+
+            <!-- 返回主页按钮 -->
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="index.html" class="back-btn">返回作品集</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
