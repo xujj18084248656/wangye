@@ -46,7 +46,7 @@
         .section-title p { font-size: 16px; color: #6b7280; margin-top: 8px; }
 
         /* ==================================================== */
-        /* === 导航栏：Logo替换与居中 === */
+        /* === 导航栏绝对定位居中 === */
         /* ==================================================== */
         nav {
             position: sticky; top: 0;
@@ -59,24 +59,19 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.8);
             z-index: 100;
         }
-        /* 修改：Logo由文字变为图片，使用a标签包裹 */
         .logo {
             position: absolute;
             left: 40px;
             top: 50%;
             transform: translateY(-50%);
+            line-height: 0;
         }
         .logo img {
-            height: 32px; /* 控制Logo高度，宽度自适应，您可以根据需要调整 */
+            height: 32px;
             width: auto;
             display: block;
-            cursor: pointer; /* 鼠标悬停变手型 */
+            cursor: pointer;
         }
-        .logo:hover {
-            opacity: 0.8; /* 悬停轻微变暗，增加交互感 */
-            transition: opacity 0.3s;
-        }
-
         .nav-links {
             display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563;
         }
@@ -147,20 +142,85 @@
         .skill-bar-track { width: 100%; height: 6px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
         .skill-bar-fill { height: 100%; background: #002FA7; border-radius: 4px; width: 0%; transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-        /* ================= 作品集 Projects ================= */
+        /* ==================================================== */
+        /* === 作品集升级：直角边、放大、缩小间距、居中布局 === */
+        /* ==================================================== */
         #projects { padding: 100px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
-        .project-card { border-radius: 16px; overflow: hidden; transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .project-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0, 47, 167, 0.15); box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.06); }
-        .project-img { height: 220px; overflow: hidden; background: #e5e7eb; }
-        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .project-card:hover .project-img img { transform: scale(1.06); }
-        .project-info { padding: 28px 24px 32px; }
-        .project-info h3 { font-size: 20px; margin-bottom: 6px; font-weight: 600; color: #1a1a1a; }
-        .project-info p { font-size: 14px; color: #4b5563; margin-bottom: 16px; line-height: 1.6; }
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tags span { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.6); color: #374151; padding: 4px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; transition: all 0.3s ease; }
-        .tags span:hover { background: rgba(0, 47, 167, 0.1); border-color: #002FA7; color: #002FA7; }
+        
+        /* 使用 Flex 布局，完美实现第4、5个项目自动居中 */
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* 居中排列 */
+            gap: 10px; /* 间距缩小至原来的三分之一（原30px） */
+        }
+
+        .project-card {
+            display: block;
+            position: relative;
+            border-radius: 0; /* 直角边 */
+            overflow: hidden;
+            background: #e5e7eb;
+            height: 400px; /* 放大卡片高度 */
+            flex: 0 1 calc(33.333% - 10px); /* 一行三个卡片 */
+            min-width: 340px; /* 防止过窄 */
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.15);
+        }
+        .project-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .project-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover .project-img img {
+            transform: scale(1.06);
+        }
+        
+        /* 底部半透明毛玻璃按钮覆盖层，直接贴合边缘 */
+        .project-overlay {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            padding: 0; /* 去除内边距，让按钮直接铺满边缘 */
+        }
+        
+        /* 按钮加长至接近卡片边缘 */
+        .overlay-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 22px 28px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 0; /* 直角卡片配直角按钮 */
+            color: #111;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+            transition: background 0.3s ease;
+        }
+        /* 左对齐：项目名称；右对齐：查看详情 */
+        .btn-title {
+            flex: 1;
+            text-align: left;
+        }
+        .btn-action {
+            color: #002FA7;
+            font-weight: 700;
+        }
+        .project-card:hover .overlay-btn {
+            background: rgba(255, 255, 255, 0.95);
+        }
 
         /* ================= 联系 Contact ================= */
         #contact { padding: 100px 0 60px; text-align: center; }
@@ -181,6 +241,7 @@
             .about-layout { flex-direction: column; }
             .profile-sidebar { position: relative; top: 0; flex: 1; width: 100%; }
             .skills-grid { grid-template-columns: 1fr; }
+            .project-card { flex: 0 1 calc(50% - 10px); } /* 平板一行两个 */
         }
         @media (max-width: 768px) {
             .bg-glow-hero { width: 100vw; height: 30vh; }
@@ -191,13 +252,13 @@
             .exp-header { flex-direction: column; align-items: flex-start; gap: 4px; }
             .contact-info { flex-direction: column; gap: 24px; align-items: center; }
             .contact-item { text-align: center; width: 100%; padding: 16px; }
+            .project-card { flex: 0 1 100%; height: 320px; } /* 手机一行一个 */
         }
     </style>
 </head>
 <body>
     <!-- ========== 导航栏 ========== -->
     <nav>
-        <!-- 修改：使用Logo图片替换文字，并设置为点击返回首页 -->
         <a href="index.html" class="logo" title="返回首页">
             <img src="logo.png" alt="徐家靖 Logo">
         </a>
@@ -321,70 +382,72 @@
                 <div class="sub" style="justify-content: center;"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">项目展示</p>
             </h2>
             <div class="grid">
+                
                 <!-- 项目一：太空舱模块化充电宝 -->
-                <div class="project-card glass animate-on-scroll delay-1">
+                <a href="project1.html" class="project-card glass animate-on-scroll delay-1">
                     <div class="project-img">
                         <img src="images/image (21).png" alt="太空舱充电宝">
                     </div>
-                    <div class="project-info">
-                        <h3>太空舱模块化充电宝</h3>
-                        <p>融合现代极简美学与模块化设计理念。分体式结构、5000mAh 快充，灵活适配多场景。</p>
-                        <div class="tags"><span>消费电子</span><span>模块化</span><span>量产落地</span></div>
-                        <a href="project1.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    <div class="project-overlay">
+                        <div class="overlay-btn">
+                            <span class="btn-title">太空舱模块化充电宝</span>
+                            <span class="btn-action">查看详情 &rarr;</span>
+                        </div>
                     </div>
-                </div>
+                </a>
                 
                 <!-- 项目二：YZ潮流便携剃须刀 -->
-                <div class="project-card glass animate-on-scroll delay-2">
+                <a href="project2.html" class="project-card glass animate-on-scroll delay-2">
                     <div class="project-img">
                         <img src="images/image (22).png" alt="YZ剃须刀">
                     </div>
-                    <div class="project-info">
-                        <h3>YZ潮流便携剃须刀</h3>
-                        <p>街头潮流美学与实用功能融合。模块化磁吸设计，可拆解清洁，搭配挂绳便捷携带。</p>
-                        <div class="tags"><span>个护产品</span><span>模块化设计</span><span>量产落地</span></div>
-                        <a href="project2.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    <div class="project-overlay">
+                        <div class="overlay-btn">
+                            <span class="btn-title">YZ潮流便携剃须刀</span>
+                            <span class="btn-action">查看详情 &rarr;</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- 项目三：磁吸暖手宝 -->
-                <div class="project-card glass animate-on-scroll delay-3">
+                <a href="project3.html" class="project-card glass animate-on-scroll delay-3">
                     <div class="project-img">
                         <img src="images/image (23).png" alt="磁吸暖手宝">
                     </div>
-                    <div class="project-info">
-                        <h3>磁吸暖手宝</h3>
-                        <p>磁吸分体式设计，单只 5000mAh 电源，四档控温，高级金属质感多色可选。</p>
-                        <div class="tags"><span>个护产品</span><span>磁吸设计</span><span>多色可选</span></div>
-                        <a href="project3.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    <div class="project-overlay">
+                        <div class="overlay-btn">
+                            <span class="btn-title">磁吸暖手宝</span>
+                            <span class="btn-action">查看详情 &rarr;</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- 项目四：其他落地项目展示 -->
-                <div class="project-card glass animate-on-scroll delay-1">
+                <a href="project4.html" class="project-card glass animate-on-scroll delay-1">
                     <div class="project-img">
                         <img src="images/image (24).png" alt="其他落地项目展示">
                     </div>
-                    <div class="project-info">
-                        <h3>其他落地项目展示</h3>
-                        <p>精选多款已量产消费电子与IP授权产品，涵盖个护、车载、家居等多元场景。</p>
-                        <div class="tags"><span>消费电子</span><span>IP授权</span><span>量产落地</span></div>
-                        <a href="project4.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    <div class="project-overlay">
+                        <div class="overlay-btn">
+                            <span class="btn-title">其他落地项目展示</span>
+                            <span class="btn-action">查看详情 &rarr;</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- 项目五：商业渲染展示 -->
-                <div class="project-card glass animate-on-scroll delay-2">
+                <a href="project5.html" class="project-card glass animate-on-scroll delay-2">
                     <div class="project-img">
                         <img src="images/image (25).png" alt="商业渲染展示">
                     </div>
-                    <div class="project-info">
-                        <h3>商业渲染展示</h3>
-                        <p>利用 Keyshot 渲染器以及 AI 工具配合辅助完成，高效、高质完成商用渲染图的输出。</p>
-                        <div class="tags"><span>Keyshot</span><span>AI辅助</span><span>商业表现</span></div>
-                        <a href="project5.html" style="display:inline-block; margin-top:16px; color:#002FA7; font-weight:600; font-size:15px; transition:0.3s;">查看详情 &rarr;</a>
+                    <div class="project-overlay">
+                        <div class="overlay-btn">
+                            <span class="btn-title">商业渲染展示</span>
+                            <span class="btn-action">查看详情 &rarr;</span>
+                        </div>
                     </div>
-                </div>
+                </a>
+                
             </div>
         </div>
     </section>
