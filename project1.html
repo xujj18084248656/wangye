@@ -14,19 +14,23 @@
             background-color: #F5F6F8;
             color: #1a1a1a;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
         a { text-decoration: none; color: inherit; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
+        /* 导航栏：居中布局 */
         nav {
-            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
             background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
         }
-        .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a; }
+        .logo {
+            position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0;
+        }
+        .logo img {
+            height: 32px; width: auto; display: block; cursor: pointer;
+        }
         .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-        .nav-links a { position: relative; }
         .nav-links a:hover { color: #111827; }
 
         .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
@@ -69,18 +73,20 @@
             .feature-img { height: 240px; width: 100%; }
             .full-width-img { height: 240px; }
             .gallery-item { height: 260px; }
+            .logo { left: 20px; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">XU JIAJING</div>
+        <a href="index.html" class="logo" title="返回首页">
+            <img src="logo.png" alt="徐家靖 Logo">
+        </a>
         <div class="nav-links">
             <a href="index.html">← 返回作品集</a>
         </div>
     </nav>
 
-    <!-- 全屏封面图 (第21张图) -->
     <div class="fullscreen-cover">
         <img src="images/image (21).png" alt="项目全屏封面">
     </div>
@@ -91,7 +97,6 @@
             <p class="sub-desc">融合现代极简美学与模块化设计理念。集多功能手持风扇、5000mAh 快充充电宝于一身，分体式结构灵活适配多种生活场景。</p>
             
             <div class="project-media-grid">
-                <!-- 图文1 (图 1) -->
                 <div class="feature-row">
                     <div class="feature-img"><img src="images/image (1).png" alt="拆解结构图"></div>
                     <div class="feature-text">
@@ -99,8 +104,6 @@
                         <p>可拆卸电池模组与风扇模组通过磁吸触点连接。方便独立充电与替换，满足户外出行的收纳与模块化组合需求。</p>
                     </div>
                 </div>
-
-                <!-- 图文2 (图 2) -->
                 <div class="feature-row reverse">
                     <div class="feature-img"><img src="images/image (2).png" alt="手持使用图"></div>
                     <div class="feature-text">
@@ -108,13 +111,9 @@
                         <p>极简流线型外观，配合硅胶挂绳设计。无论通勤、露营还是旅行，都能轻松挂载于背包或握持于手中。</p>
                     </div>
                 </div>
-
-                <!-- 大图展示 (图 3) -->
                 <div class="full-width-img">
                     <img src="images/image (3).png" alt="场景展示宽图">
                 </div>
-
-                <!-- 图文3 (图 4) -->
                 <div class="feature-row">
                     <div class="feature-img"><img src="images/image (4).png" alt="手机充电图"></div>
                     <div class="feature-text">
@@ -122,8 +121,6 @@
                         <p>内置 5000mAh 大容量电池，支持 PD/QC 快充。不仅能为手机和耳机紧急补电，还能实现随行随充，拒绝续航焦虑。</p>
                     </div>
                 </div>
-
-                <!-- 图文4 (图 5) -->
                 <div class="feature-row reverse">
                     <div class="feature-img"><img src="images/image (5).png" alt="吹风场景图"></div>
                     <div class="feature-text">
@@ -132,7 +129,6 @@
                     </div>
                 </div>
 
-                <!-- 15张大图瀑布流 (图 6 - 图 20) -->
                 <h3 class="gallery-title">多角度场景与产品细节展示</h3>
                 <div class="gallery-grid">
                     <div class="gallery-item"><img src="images/image (6).png" alt="展示图 6"></div>

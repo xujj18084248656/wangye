@@ -6,7 +6,7 @@
     <title>磁吸暖手宝 · 徐家靖作品集</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -14,24 +14,21 @@
             background-color: #F5F6F8;
             color: #1a1a1a;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
         a { text-decoration: none; color: inherit; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         nav {
-            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
             background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
         }
-        .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a; }
+        .logo { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0; }
+        .logo img { height: 32px; width: auto; display: block; cursor: pointer; }
         .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-        .nav-links a { position: relative; }
-        .nav-links a:hover { color: #111827; }
 
         .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
 
-        /* 全屏封面 */
         .fullscreen-cover { width: 100%; height: 100vh; background: #e5e7eb; overflow: hidden; }
         .fullscreen-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -69,18 +66,20 @@
             .feature-img { height: 240px; width: 100%; }
             .full-width-img { height: 240px; }
             .gallery-item { height: 260px; }
+            .logo { left: 20px; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">XU JIAJING</div>
+        <a href="index.html" class="logo" title="返回首页">
+            <img src="logo.png" alt="徐家靖 Logo">
+        </a>
         <div class="nav-links">
             <a href="index.html">← 返回作品集</a>
         </div>
     </nav>
 
-    <!-- 全屏封面图 (第1张图) -->
     <div class="fullscreen-cover">
         <img src="images/project3/image (1).png" alt="磁吸暖手宝全屏封面">
     </div>
@@ -91,7 +90,6 @@
             <p class="sub-desc">磁吸分体式设计，单只 5000mAh 电源，四档控温，高级金属质感多色可选。</p>
             
             <div class="project-media-grid">
-                <!-- 图文1 (图 2) -->
                 <div class="feature-row">
                     <div class="feature-img"><img src="images/project3/image (2).png" alt="双手取暖图"></div>
                     <div class="feature-text">
@@ -99,8 +97,6 @@
                         <p>分体双仓同步发热，全天候持续供暖，双手同步取暖。</p>
                     </div>
                 </div>
-
-                <!-- 图文2 (图 3) -->
                 <div class="feature-row reverse">
                     <div class="feature-img"><img src="images/project3/image (3).png" alt="充电功能图"></div>
                     <div class="feature-text">
@@ -108,13 +104,9 @@
                         <p>一物两用，单只 5000mAh，寒冬既能暖手，又可为手机应急充电。</p>
                     </div>
                 </div>
-
-                <!-- 大图展示 (图 4) -->
                 <div class="full-width-img">
                     <img src="images/project3/image (4).png" alt="场景展示宽图">
                 </div>
-
-                <!-- 图文3 (图 5) -->
                 <div class="feature-row">
                     <div class="feature-img"><img src="images/project3/image (5).png" alt="磁吸黑科技图"></div>
                     <div class="feature-text">
@@ -122,8 +114,6 @@
                         <p>磁吸分体式暖手宝，可拆分可磁吸合并，小巧便携随身。</p>
                     </div>
                 </div>
-
-                <!-- 图文4 (图 6) -->
                 <div class="feature-row reverse">
                     <div class="feature-img"><img src="images/project3/image (6).png" alt="四档控温图"></div>
                     <div class="feature-text">
@@ -132,7 +122,6 @@
                     </div>
                 </div>
 
-                <!-- 底部 14 张大图 (图 7 - 图 20) -->
                 <h3 class="gallery-title">多角度场景与产品细节展示</h3>
                 <div class="gallery-grid">
                     <div class="gallery-item"><img src="images/project3/image (7).png" alt="多色图1"></div>

@@ -46,12 +46,12 @@
         .section-title p { font-size: 16px; color: #6b7280; margin-top: 8px; }
 
         /* ==================================================== */
-        /* === 核心更改：导航栏绝对定位居中 === */
+        /* === 导航栏：Logo替换与居中 === */
         /* ==================================================== */
         nav {
             position: sticky; top: 0;
             display: flex;
-            justify-content: center; /* 让 nav-links 在水平方向居中 */
+            justify-content: center;
             align-items: center;
             padding: 20px 0;
             background: rgba(244, 245, 248, 0.5);
@@ -59,13 +59,24 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.8);
             z-index: 100;
         }
+        /* 修改：Logo由文字变为图片，使用a标签包裹 */
         .logo {
             position: absolute;
-            left: 40px; /* 将 Logo 固定在最左侧 40px 处 */
+            left: 40px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a;
         }
+        .logo img {
+            height: 32px; /* 控制Logo高度，宽度自适应，您可以根据需要调整 */
+            width: auto;
+            display: block;
+            cursor: pointer; /* 鼠标悬停变手型 */
+        }
+        .logo:hover {
+            opacity: 0.8; /* 悬停轻微变暗，增加交互感 */
+            transition: opacity 0.3s;
+        }
+
         .nav-links {
             display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563;
         }
@@ -186,7 +197,10 @@
 <body>
     <!-- ========== 导航栏 ========== -->
     <nav>
-        <div class="logo">XU JIAJING</div>
+        <!-- 修改：使用Logo图片替换文字，并设置为点击返回首页 -->
+        <a href="index.html" class="logo" title="返回首页">
+            <img src="logo.png" alt="徐家靖 Logo">
+        </a>
         <div class="nav-links">
             <a href="#hero">首页</a>
             <a href="#about">关于我</a>
@@ -200,7 +214,7 @@
         <div class="hero-container animate-on-scroll is-visible">
             <h1 class="hero-title-large">PORTFOLIO</h1>
             <h2 class="hero-name">徐家靖 · 工业设计师</h2>
-            <p class="hero-desc">专注于消费电子与IP授权产品设计，具备从前期市场调研、ID设计到量产落地的全流程实战经验。善于运用AI技术高效赋能创意。</p>
+            <p class="hero-desc">专注于消费电子与IP授权产品设计，具备从前期市场调研、ID设计到量产落地的全流程实战经验。</p>
             <div class="btn-group">
                 <a href="#about" class="btn btn-light">了解我</a>
                 <a href="#projects" class="btn btn-dark">查看作品</a>
@@ -227,13 +241,7 @@
                 <div class="section-title animate-on-scroll is-visible">
                     <div class="sub"><span>ABOUT ME</span></div>
                     <h2>关于我</h2>
-                    <p>三年工业设计经验，专注消费电子产品从概念到量产的全流程设计</p>
-                </div>
-
-                <div class="design-philosophy animate-on-scroll">
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #111827;">设计理念</h3>
-                    <p>三年消费电子类产品设计经验，擅长产品 ID 迭代与新品研发。具备从市场调研、概念设计、建模渲染到手板验证、量产落地的全流程推进能力。</p>
-                    <p>熟悉 AI 设计工具链，累计完成 30+ 套商业宣发渲染项目，多款产品实现模具落地并申请外观专利。</p>
+                    <p>三年消费电子类产品设计经验，擅长产品 ID 迭代与新品研发。具备从市场调研、概念设计、建模渲染到手板验证、量产落地的全流程推进能力。熟悉 AI 设计工具链，累计完成 30+ 套商业宣发渲染项目，多款产品实现模具落地并申请外观专利。</p>
                 </div>
 
                 <div class="animate-on-scroll">
@@ -256,7 +264,7 @@
                 <div class="animate-on-scroll">
                     <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">工作经历</h3>
                     <div class="exp-item glass">
-                        <div class="exp-header"><h3>量子科技股份有限公司（台企）</h3><span class="date">2025.03 - 2026.09</span></div>
+                        <div class="exp-header"><h3>墨子科技股份有限公司（台企）</h3><span class="date">2025.03 - 2026.09</span></div>
                         <div class="exp-role">工业设计师 · 消费电子</div>
                         <ul class="exp-duties">
                             <li>产品 ID 迭代设计，负责现有爆款产品的外观升级与改版；</li>
@@ -309,7 +317,9 @@
 
     <section id="projects">
         <div class="container">
-            <h2 class="section-title animate-on-scroll"><div class="sub"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">近期项目</p></h2>
+            <h2 class="section-title animate-on-scroll" style="text-align: center; border-left: none; padding-left: 0;">
+                <div class="sub" style="justify-content: center;"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">项目展示</p>
+            </h2>
             <div class="grid">
                 <!-- 项目一：太空舱模块化充电宝 -->
                 <div class="project-card glass animate-on-scroll delay-1">
@@ -388,7 +398,7 @@
                 <div class="contact-item glass animate-on-scroll delay-1"><div class="label">联系电话</div><div class="value">180 8424 8656</div></div>
                 <div class="contact-item glass animate-on-scroll delay-2"><div class="label">电子邮箱</div><div class="value">2604437203@qq.com</div></div>
                 <div class="contact-item glass animate-on-scroll delay-3"><div class="label">意向城市</div><div class="value">广东 · 深圳</div></div>
-                <div class="contact-item glass animate-on-scroll delay-4"><div class="label">期望薪资</div><div class="value">13k - 15k</div></div>
+                <div class="contact-item glass animate-on-scroll delay-4"><div class="label">期望薪资</div><div class="value">15K+</div></div>
             </div>
             <div class="footer-note">© 2026 徐家靖 · Designed with Minimalism</div>
         </div>

@@ -23,104 +23,50 @@
         a { text-decoration: none; color: inherit; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
-        /* 顶部导航 */
         nav {
             position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
             background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
         }
-        .logo {
-            position: absolute; left: 40px; top: 50%; transform: translateY(-50%);
-            font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #1a1a1a;
-        }
+        .logo { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0; }
+        .logo img { height: 32px; width: auto; display: block; cursor: pointer; }
         .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-        .nav-links a { position: relative; }
-        .nav-links a:hover { color: #111827; }
 
-        /* 毛玻璃容器 */
-        .glass {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
-        }
+        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
 
-        /* 主容器 */
         .project-container { padding: 60px 40px; border-radius: 24px; margin: 40px 0 80px; }
 
-        /* 页面大标题 */
         .page-header { text-align: center; margin-bottom: 60px; }
         .page-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 10px; }
         .page-header p { color: #6b7280; max-width: 650px; font-size: 16px; line-height: 1.6; margin: 0 auto; }
 
-        /* 6个产品板块 */
-        .product-block {
-            margin-bottom: 80px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        }
+        .product-block { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
         .product-block:last-child { border-bottom: none; margin-bottom: 0; }
 
-        /* 标题与介绍 */
-        .product-header {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 12px;
-        }
+        .product-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; }
         .product-index { font-size: 28px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px; }
         .product-title { font-size: 24px; font-weight: 600; color: #1a1a1a; }
-        .product-desc {
-            text-align: center; font-size: 15px; color: #4b5563; line-height: 1.7;
-            margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;
-        }
+        .product-desc { text-align: center; font-size: 15px; color: #4b5563; line-height: 1.7; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; }
 
-        /* ==================================================== */
-        /* === 大图轮播区域 === */
-        /* ==================================================== */
-        .carousel-wrap {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #e5e7eb;
-        }
+        .carousel-wrap { width: 100%; border-radius: 16px; overflow: hidden; background: #e5e7eb; }
+        .swiper { width: 100%; height: 600px; }
+        .swiper-slide { width: 100%; height: 100%; overflow: hidden; background: #e5e7eb; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .swiper {
-            width: 100%;
-            height: 600px; /* 大屏端 600px 高度，视觉极致大气 */
-        }
-
-        .swiper-slide {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #e5e7eb;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 严格保持 16:9 比例铺满 */
-            display: block;
-        }
-
-        /* 返回按钮 */
-        .back-btn {
-            display: inline-block; padding: 14px 36px;
-            background: #111; color: #fff; border-radius: 50px;
-            font-size: 15px; transition: 0.3s; text-align: center;
-        }
+        .back-btn { display: inline-block; padding: 14px 36px; background: #111; color: #fff; border-radius: 50px; font-size: 15px; transition: 0.3s; text-align: center; }
         .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
 
-        /* 响应式适配 */
         @media (max-width: 768px) {
             .project-container { padding: 30px 20px; }
             .logo { left: 20px; }
-            .nav-links { display: none; }
-            .swiper { height: 320px; } /* 手机端适配比例 */
+            .swiper { height: 320px; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">XU JIAJING</div>
+        <a href="index.html" class="logo" title="返回首页">
+            <img src="logo.png" alt="徐家靖 Logo">
+        </a>
         <div class="nav-links">
             <a href="index.html">← 返回作品集</a>
         </div>
@@ -128,7 +74,6 @@
 
     <div class="container">
         <div class="project-container glass">
-            <!-- 页面大标题 -->
             <div class="page-header">
                 <h2>其他落地项目展示</h2>
                 <p>精选多款已量产消费电子与IP授权产品，涵盖个护、车载、家居等多元场景，体现扎实的商业落地与结构设计能力。</p>
@@ -248,36 +193,28 @@
                 </div>
             </div>
 
-            <!-- 返回主页按钮 -->
             <div style="text-align: center; margin-top: 40px;">
                 <a href="index.html" class="back-btn">返回作品集</a>
             </div>
         </div>
     </div>
 
-    <!-- 引入 Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <!-- 初始化 Swiper -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 自动为页面上所有 .mySwiper 实例化
-            document.querySelectorAll('.mySwiper').forEach((el, index) => {
+            document.querySelectorAll('.mySwiper').forEach((el) => {
                 new Swiper(el, {
-                    loop: true,             // 无限无缝循环
-                    grabCursor: true,       // 鼠标拖拽手感
-                    slidesPerView: 1,       // 每次显示1张大图
-                    spaceBetween: 16,       // 图片之间的微距
-                    speed: 600,             // 切换速度，丝滑
+                    loop: true,
+                    grabCursor: true,
+                    slidesPerView: 1,
+                    spaceBetween: 16,
+                    speed: 600,
                     centeredSlides: true,
-                    
-                    // ===== 核心配置：自动滚动 + 拖拽不断 =====
                     autoplay: {
-                        delay: 3000,           // 3秒自动切换一张
-                        disableOnInteraction: false, // 鼠标拖拽后，自动播放【不会停止】
-                        pauseOnMouseEnter: true,     // 鼠标悬停在图片上时，【暂停】滚动，移开继续
+                        delay: 3000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
                     },
-                    
                     keyboard: { enabled: true },
                 });
             });
