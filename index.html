@@ -45,6 +45,25 @@
         .section-title h2 { font-size: 36px; font-weight: 700; color: #111827; }
         .section-title p { font-size: 16px; color: #6b7280; margin-top: 8px; }
 
+        /* ================= 鼠标跟随小黑点（小跟班） ================= */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.8;
+            transition: left 0.05s linear, top 0.05s linear, transform 0.2s;
+            transform: translate(8px, 8px);
+        }
+        a:hover ~ .cursor-dot, a:hover .cursor-dot {
+            transform: translate(8px, 8px) scale(1.5);
+        }
+
         /* ==================================================== */
         /* === 导航栏绝对定位居中 === */
         /* ==================================================== */
@@ -90,7 +109,20 @@
             filter: blur(80px); z-index: 0; animation: pulseGlow 6s ease-in-out infinite alternate;
         }
         @keyframes pulseGlow { 0% { opacity: 0.7; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.05); } }
-        .hero-title-large { font-size: clamp(80px, 12vw, 140px); font-weight: 900; letter-spacing: -4px; color: #002FA7; line-height: 1; margin-bottom: 10px; text-shadow: 0 0 40px rgba(0, 47, 167, 0.1); }
+        
+        /* 黑到克莱因蓝的渐变 */
+        .hero-title-large { 
+            font-size: clamp(80px, 12vw, 140px); 
+            font-weight: 900; 
+            letter-spacing: -4px; 
+            line-height: 1; 
+            margin-bottom: 10px; 
+            background: linear-gradient(to right, #000000 0%, #002FA7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .hero-name { font-size: clamp(24px, 3vw, 36px); font-weight: 500; color: #1a1a1a; letter-spacing: 2px; margin-top: -20px; }
         .hero-desc { max-width: 600px; font-size: 16px; color: #666; line-height: 1.6; margin: 10px 0 30px; text-align: center; }
         .hero-container { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
@@ -104,8 +136,8 @@
         /* ================= 关于我 About ================= */
         #about { padding: 60px 0 100px; background: #F5F6F8; }
         .about-layout { display: flex; gap: 60px; align-items: flex-start; }
-        .profile-sidebar { flex: 0 0 340px; position: sticky; top: 100px; align-self: flex-start; padding: 40px 30px; border-radius: 20px; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.7); }
-        .profile-img { width: 100%; max-width: 240px; height: 320px; margin: 0 auto 24px; border-radius: 12px; overflow: hidden; background: #f3f4f6; display: flex; justify-content: center; align-items: center; }
+        .profile-sidebar { flex: 0 0 340px; position: sticky; top: 100px; align-self: flex-start; padding: 40px 30px; border-radius: 0px; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.7); }
+        .profile-img { width: 100%; max-width: 240px; height: 320px; margin: 0 auto 24px; border-radius: 0px; overflow: hidden; background: #f3f4f6; display: flex; justify-content: center; align-items: center; }
         .profile-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
         .profile-sidebar h2 { font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 4px; }
         .profile-sidebar .title { font-size: 15px; color: #6b7280; margin-bottom: 30px; }
@@ -117,14 +149,14 @@
         .main-content { flex: 1; display: flex; flex-direction: column; gap: 60px; }
         .design-philosophy p { color: #4b5563; line-height: 1.8; margin-bottom: 16px; font-size: 15px; }
         
-        .edu-item { background: #ffffff; padding: 24px 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
+        .edu-item { background: #ffffff; padding: 24px 30px; border-radius: 0px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
         .edu-left h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: #111827; }
         .edu-left p { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
         .edu-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .edu-tags span { background: #f3f4f6; color: #4b5563; padding: 4px 12px; border-radius: 4px; font-size: 13px; }
+        .edu-tags span { background: #f3f4f6; color: #4b5563; padding: 4px 12px; border-radius: 0px; font-size: 13px; }
         .edu-right { font-size: 14px; color: #9ca3af; font-weight: 500; white-space: nowrap; margin-top: 4px; }
 
-        .exp-item { background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 20px; }
+        .exp-item { background: #ffffff; padding: 30px; border-radius: 0px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 20px; }
         .exp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
         .exp-header h3 { font-size: 18px; font-weight: 600; color: #111827; }
         .exp-header .date { font-size: 14px; color: #9ca3af; font-weight: 500; }
@@ -132,38 +164,35 @@
         .exp-duties { list-style: none; padding-left: 0; color: #4b5563; font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
         .exp-duties li { position: relative; padding-left: 18px; }
         .exp-duties li::before { content: "•"; position: absolute; left: 0; color: #002FA7; font-weight: bold; }
-        .exp-achievement { background: rgba(0, 47, 167, 0.04); padding: 12px 16px; border-radius: 8px; border-left: 3px solid #002FA7; color: #374151; font-size: 14px; line-height: 1.6; }
+        .exp-achievement { background: rgba(0, 47, 167, 0.04); padding: 12px 16px; border-radius: 0px; border-left: 3px solid #002FA7; color: #374151; font-size: 14px; line-height: 1.6; }
         .exp-achievement strong { color: #002FA7; font-weight: 600; }
 
         .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .skill-cat { background: #ffffff; padding: 20px 24px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
+        .skill-cat { background: #ffffff; padding: 20px 24px; border-radius: 0px; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
         .skill-cat h4 { font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px; }
         .skill-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 6px; color: #4b5563; }
-        .skill-bar-track { width: 100%; height: 6px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
-        .skill-bar-fill { height: 100%; background: #002FA7; border-radius: 4px; width: 0%; transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .skill-bar-track { width: 100%; height: 6px; background: #e5e7eb; border-radius: 0px; overflow: hidden; margin-bottom: 12px; }
+        .skill-bar-fill { height: 100%; background: #002FA7; border-radius: 0px; width: 0%; transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
         /* ==================================================== */
         /* === 作品集升级：直角边、放大、缩小间距、居中布局 === */
         /* ==================================================== */
         #projects { padding: 100px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
-        
-        /* 使用 Flex 布局，完美实现第4、5个项目自动居中 */
         .grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* 居中排列 */
-            gap: 10px; /* 间距缩小至原来的三分之一（原30px） */
+            justify-content: center;
+            gap: 10px;
         }
-
         .project-card {
             display: block;
             position: relative;
-            border-radius: 0; /* 直角边 */
+            border-radius: 0;
             overflow: hidden;
             background: #e5e7eb;
-            height: 400px; /* 放大卡片高度 */
-            flex: 0 1 calc(33.333% - 10px); /* 一行三个卡片 */
-            min-width: 340px; /* 防止过窄 */
+            height: 400px;
+            flex: 0 1 calc(33.333% - 10px);
+            min-width: 340px;
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s;
         }
         .project-card:hover {
@@ -183,16 +212,12 @@
         .project-card:hover .project-img img {
             transform: scale(1.06);
         }
-        
-        /* 底部半透明毛玻璃按钮覆盖层，直接贴合边缘 */
         .project-overlay {
             position: absolute;
             bottom: 0; left: 0;
             width: 100%;
-            padding: 0; /* 去除内边距，让按钮直接铺满边缘 */
+            padding: 0;
         }
-        
-        /* 按钮加长至接近卡片边缘 */
         .overlay-btn {
             display: flex;
             justify-content: space-between;
@@ -202,14 +227,13 @@
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-radius: 0; /* 直角卡片配直角按钮 */
+            border-radius: 0;
             color: #111;
             font-size: 15px;
             font-weight: 600;
             text-align: left;
             transition: background 0.3s ease;
         }
-        /* 左对齐：项目名称；右对齐：查看详情 */
         .btn-title {
             flex: 1;
             text-align: left;
@@ -225,7 +249,7 @@
         /* ================= 联系 Contact ================= */
         #contact { padding: 100px 0 60px; text-align: center; }
         .contact-info { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 32px; }
-        .contact-item { padding: 24px 40px; border-radius: 16px; transition: all 0.4s ease; }
+        .contact-item { padding: 24px 40px; border-radius: 0px; transition: all 0.4s ease; }
         .contact-item:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.9); }
         .contact-item .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
         .contact-item .value { font-size: 18px; font-weight: 500; margin-top: 4px; color: #111827; }
@@ -241,7 +265,7 @@
             .about-layout { flex-direction: column; }
             .profile-sidebar { position: relative; top: 0; flex: 1; width: 100%; }
             .skills-grid { grid-template-columns: 1fr; }
-            .project-card { flex: 0 1 calc(50% - 10px); } /* 平板一行两个 */
+            .project-card { flex: 0 1 calc(50% - 10px); }
         }
         @media (max-width: 768px) {
             .bg-glow-hero { width: 100vw; height: 30vh; }
@@ -252,11 +276,15 @@
             .exp-header { flex-direction: column; align-items: flex-start; gap: 4px; }
             .contact-info { flex-direction: column; gap: 24px; align-items: center; }
             .contact-item { text-align: center; width: 100%; padding: 16px; }
-            .project-card { flex: 0 1 100%; height: 320px; } /* 手机一行一个 */
+            .project-card { flex: 0 1 100%; height: 320px; }
+            .cursor-dot { display: none; }
         }
     </style>
 </head>
 <body>
+    <!-- 鼠标跟随小黑点 -->
+    <div class="cursor-dot" id="cursorDot"></div>
+
     <!-- ========== 导航栏 ========== -->
     <nav>
         <a href="index.html" class="logo" title="返回首页">
@@ -382,72 +410,27 @@
                 <div class="sub" style="justify-content: center;"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">项目展示</p>
             </h2>
             <div class="grid">
-                
-                <!-- 项目一：太空舱模块化充电宝 -->
                 <a href="project1.html" class="project-card glass animate-on-scroll delay-1">
-                    <div class="project-img">
-                        <img src="images/image (21).png" alt="太空舱充电宝">
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-btn">
-                            <span class="btn-title">太空舱模块化充电宝</span>
-                            <span class="btn-action">查看详情 &rarr;</span>
-                        </div>
-                    </div>
+                    <div class="project-img"><img src="images/image (21).png" alt="太空舱充电宝"></div>
+                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">太空舱模块化充电宝</span><span class="btn-action">查看详情 &rarr;</span></div></div>
                 </a>
-                
-                <!-- 项目二：YZ潮流便携剃须刀 -->
+                <!-- 项目二：名称已修改为 YEEZY潮流便携剃须刀 -->
                 <a href="project2.html" class="project-card glass animate-on-scroll delay-2">
-                    <div class="project-img">
-                        <img src="images/image (22).png" alt="YZ剃须刀">
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-btn">
-                            <span class="btn-title">YZ潮流便携剃须刀</span>
-                            <span class="btn-action">查看详情 &rarr;</span>
-                        </div>
-                    </div>
+                    <div class="project-img"><img src="images/image (22).png" alt="YEEZY剃须刀"></div>
+                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">YEEZY潮流便携剃须刀</span><span class="btn-action">查看详情 &rarr;</span></div></div>
                 </a>
-
-                <!-- 项目三：磁吸暖手宝 -->
                 <a href="project3.html" class="project-card glass animate-on-scroll delay-3">
-                    <div class="project-img">
-                        <img src="images/image (23).png" alt="磁吸暖手宝">
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-btn">
-                            <span class="btn-title">磁吸暖手宝</span>
-                            <span class="btn-action">查看详情 &rarr;</span>
-                        </div>
-                    </div>
+                    <div class="project-img"><img src="images/image (23).png" alt="磁吸暖手宝"></div>
+                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">磁吸暖手宝</span><span class="btn-action">查看详情 &rarr;</span></div></div>
                 </a>
-
-                <!-- 项目四：其他落地项目展示 -->
                 <a href="project4.html" class="project-card glass animate-on-scroll delay-1">
-                    <div class="project-img">
-                        <img src="images/image (24).png" alt="其他落地项目展示">
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-btn">
-                            <span class="btn-title">其他落地项目展示</span>
-                            <span class="btn-action">查看详情 &rarr;</span>
-                        </div>
-                    </div>
+                    <div class="project-img"><img src="images/image (24).png" alt="其他落地项目展示"></div>
+                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">其他落地项目展示</span><span class="btn-action">查看详情 &rarr;</span></div></div>
                 </a>
-
-                <!-- 项目五：商业渲染展示 -->
                 <a href="project5.html" class="project-card glass animate-on-scroll delay-2">
-                    <div class="project-img">
-                        <img src="images/image (25).png" alt="商业渲染展示">
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-btn">
-                            <span class="btn-title">商业渲染展示</span>
-                            <span class="btn-action">查看详情 &rarr;</span>
-                        </div>
-                    </div>
+                    <div class="project-img"><img src="images/image (25).png" alt="商业渲染展示"></div>
+                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">商业渲染展示</span><span class="btn-action">查看详情 &rarr;</span></div></div>
                 </a>
-                
             </div>
         </div>
     </section>
@@ -468,6 +451,24 @@
     </section>
 
     <script>
+        // 鼠标“小跟班”跟随效果 (保留原生鼠标)
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursorDot = document.getElementById('cursorDot');
+            document.addEventListener('mousemove', function(e) {
+                requestAnimationFrame(() => {
+                    cursorDot.style.left = e.clientX + 'px';
+                    cursorDot.style.top = e.clientY + 'px';
+                });
+            });
+
+            const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-tag');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursorDot.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovered'));
+            });
+        });
+
+        // 平滑滚动与入场动画
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
