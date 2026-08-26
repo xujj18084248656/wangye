@@ -4,221 +4,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>其他落地项目展示 · 徐家靖作品集</title>
-    
-    <!-- 引入 Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F2F3F5; --surface: #fff; --text: #0A0A0A; --text-2: #4B5563;
+            --text-3: #9CA3AF; --accent: #002FA7; --border: rgba(0,0,0,0.06);
+            --border-strong: rgba(0,0,0,0.12); --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+            --ease-out: cubic-bezier(0.16,1,0.3,1);
+        }
         html { scroll-behavior: smooth; }
         body {
-            background-color: #F5F6F8;
-            color: #1a1a1a;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none;
         }
-        a { text-decoration: none; color: inherit; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-
+        @media (max-width:768px){ body{cursor:auto;} }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        @media (max-width:768px){ a{cursor:pointer;} }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        body::before {
+            content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+            pointer-events:none; z-index:9998; opacity:0.035;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .cursor-outer,.cursor-inner { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+        .cursor-outer { width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; transition:width .3s,height .3s,background .3s; }
+        .cursor-inner { width:5px; height:5px; background:var(--accent); border-radius:50%; transition:transform .1s linear; }
+        .cursor-outer.hovered { width:56px; height:56px; background:rgba(0,47,167,.08); }
+        @media(max-width:768px){ .cursor-outer,.cursor-inner{display:none;} }
+        #scroll-progress { position:fixed; top:0; left:0; height:2px; width:0; background:linear-gradient(90deg,var(--accent),#00A8FF); z-index:9999; }
         nav {
-            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
-            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+            position:fixed; top:0; left:0; width:100%; display:flex; justify-content:center;
+            align-items:center; padding:20px 0; z-index:100; transition:padding .4s var(--ease),background .4s,backdrop-filter .4s,border-color .4s;
+            border-bottom:1px solid transparent;
         }
-        .logo { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0; }
-        .logo img { height: 32px; width: auto; display: block; cursor: pointer; }
-        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-
-        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
-
-        .project-container { padding: 60px 40px; border-radius: 24px; margin: 40px 0 80px; }
-
-        .page-header { text-align: center; margin-bottom: 60px; }
-        .page-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 10px; }
-        .page-header p { color: #6b7280; max-width: 650px; font-size: 16px; line-height: 1.6; margin: 0 auto; }
-
-        .product-block { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
-        .product-block:last-child { border-bottom: none; margin-bottom: 0; }
-
-        .product-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; }
-        .product-index { font-size: 28px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px; }
-        .product-title { font-size: 24px; font-weight: 600; color: #1a1a1a; }
-        .product-desc { text-align: center; font-size: 15px; color: #4b5563; line-height: 1.7; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; }
-
-        .carousel-wrap { width: 100%; border-radius: 16px; overflow: hidden; background: #e5e7eb; }
-        .swiper { width: 100%; height: 600px; }
-        .swiper-slide { width: 100%; height: 100%; overflow: hidden; background: #e5e7eb; }
-        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .back-btn { display: inline-block; padding: 14px 36px; background: #111; color: #fff; border-radius: 50px; font-size: 15px; transition: 0.3s; text-align: center; }
-        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
-
-        @media (max-width: 768px) {
-            .project-container { padding: 30px 20px; }
-            .logo { left: 20px; }
-            .swiper { height: 320px; }
+        nav.scrolled { padding:12px 0; background:rgba(242,243,245,.75); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border-bottom-color:var(--border); }
+        .logo { position:absolute; left:40px; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:10px; line-height:0; }
+        .logo img { height:28px; width:auto; display:block; }
+        .logo-text { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:.5px; }
+        .nav-back {
+            display:inline-flex; align-items:center; gap:8px; padding:10px 24px;
+            background:rgba(255,255,255,.6); backdrop-filter:blur(10px); border:1px solid var(--border);
+            border-radius:100px; font-size:13px; font-weight:500; color:var(--text-2); transition:all .3s;
+        }
+        .nav-back:hover { color:var(--text); border-color:var(--border-strong); background:#fff; transform:translateY(-1px); }
+        .nav-back .arrow { transition:transform .3s; }
+        .nav-back:hover .arrow { transform:translateX(-3px); }
+        /* 页面头部 */
+        .page-hero { padding:140px 0 60px; text-align:center; }
+        .page-hero .cat-tag { display:inline-block; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:16px; }
+        .page-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(36px,6vw,72px); font-weight:700; letter-spacing:-2.5px; line-height:1.05; margin-bottom:20px; }
+        .page-hero p { color:var(--text-2); max-width:680px; font-size:15px; line-height:1.8; margin:0 auto; }
+        /* 产品区块 */
+        .product-block { padding:60px 0; border-top:1px solid var(--border); }
+        .product-block:first-of-type { border-top:none; }
+        .product-header { display:flex; align-items:baseline; gap:20px; margin-bottom:12px; flex-wrap:wrap; }
+        .product-index { font-family:'Space Grotesk',sans-serif; font-size:48px; font-weight:700; color:var(--border-strong); line-height:1; }
+        .product-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,3vw,32px); font-weight:600; }
+        .product-desc { font-size:14px; color:var(--text-2); line-height:1.7; margin-bottom:32px; max-width:700px; }
+        /* Swiper */
+        .carousel-wrap { width:100%; overflow:hidden; background:var(--bg); border:1px solid var(--border); position:relative; }
+        .swiper { width:100%; height:560px; }
+        .swiper-slide { width:100%; height:100%; overflow:hidden; background:var(--bg); }
+        .swiper-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+        .swiper-button-next,.swiper-button-prev { color:var(--text); background:rgba(255,255,255,.8); backdrop-filter:blur(10px); width:44px; height:44px; border-radius:50%; transition:all .3s; }
+        .swiper-button-next::after,.swiper-button-prev::after { font-size:16px; font-weight:700; }
+        .swiper-button-next:hover,.swiper-button-prev:hover { background:var(--text); color:#fff; }
+        .swiper-pagination-bullet { background:var(--text-3); opacity:.5; }
+        .swiper-pagination-bullet-active { background:var(--accent); opacity:1; }
+        /* 返回 */
+        .back-section { text-align:center; padding:60px 0 80px; border-top:1px solid var(--border); }
+        .back-btn { display:inline-flex; align-items:center; gap:10px; padding:14px 36px; background:var(--text); color:#fff; border-radius:100px; font-size:14px; font-weight:500; transition:all .4s var(--ease); border:1px solid var(--text); }
+        .back-btn:hover { background:var(--accent); border-color:var(--accent); transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,47,167,.3); }
+        .back-btn .arrow { transition:transform .3s; }
+        .back-btn:hover .arrow { transform:translateX(-4px); }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s var(--ease-out),transform .9s var(--ease-out); }
+        .reveal.is-visible { opacity:1; transform:translateY(0); }
+        @media(max-width:768px){
+            .container{padding:0 20px;} .logo{left:20px;} .logo-text{display:none;}
+            .swiper{height:320px;} .page-hero{padding:100px 0 40px;}
+            .product-index{font-size:32px;} .swiper-button-next,.swiper-button-prev{width:36px;height:36px;}
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo" title="返回首页">
-            <img src="logo.png" alt="徐家靖 Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html">← 返回作品集</a>
-        </div>
+    <div id="scroll-progress"></div>
+    <div class="cursor-outer" id="cursorOuter"></div>
+    <div class="cursor-inner" id="cursorInner"></div>
+    <nav id="navbar">
+        <a href="index.html" class="logo"><img src="logo.png" alt="徐家靖 Logo"></a>
+        <a href="index.html" class="nav-back"><span class="arrow">←</span> 返回作品集</a>
     </nav>
 
     <div class="container">
-        <div class="project-container glass">
-            <div class="page-header">
-                <h2>其他落地项目展示</h2>
-                <p>精选多款已量产消费电子与IP授权产品，涵盖个护、车载、家居等多元场景，体现扎实的商业落地与结构设计能力。</p>
-            </div>
-
-            <!-- 1. 便携酒精检测仪 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">01</span>
-                    <h3 class="product-title">便携酒精检测仪</h3>
-                </div>
-                <p class="product-desc">迷你手持设计，高精度电化学传感器，快速响应；采用极简的交互逻辑，一键测量，结果直观清晰，适合随身携带。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/alcohol_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/alcohol_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/alcohol_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/alcohol_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. 迪士尼车载香薰 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">02</span>
-                    <h3 class="product-title">迪士尼车载香薰</h3>
-                </div>
-                <p class="product-desc">迪士尼IP授权定制车载香薰，萌趣卡通造型与汽车出风口完美结合。多款经典角色，营造沉浸式童话氛围，香气柔和持久。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/car_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/car_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/car_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/car_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. 迪士尼灭蚊灯 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">03</span>
-                    <h3 class="product-title">迪士尼灭蚊灯</h3>
-                </div>
-                <p class="product-desc">结合迪士尼元素的室内物理灭蚊灯。采用UV紫光引诱与强力涡流吸入设计，无毒无味。外观圆润可爱，兼具实用功能与装饰性。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/mosquito_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/mosquito_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/mosquito_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/mosquito_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. 手持制冷风扇 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">04</span>
-                    <h3 class="product-title">手持制冷风扇</h3>
-                </div>
-                <p class="product-desc">内置半导体制冷技术，不仅能吹风，更能吹出冰爽冷风。极简流线外观搭配金属质感，强风静音，是夏日户外降温利器。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/hand_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/hand_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/hand_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/hand_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. 手持折叠制冷高速风扇 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">05</span>
-                    <h3 class="product-title">手持折叠制冷高速风扇</h3>
-                </div>
-                <p class="product-desc">在制冷风扇基础上增加多角度折叠功能，可手持亦可桌面使用。高速无刷电机提供强劲风量，折叠结构提升收纳便利性。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/fold_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/fold_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/fold_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/fold_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. MINI暴力风扇 -->
-            <div class="product-block">
-                <div class="product-header">
-                    <span class="product-index">06</span>
-                    <h3 class="product-title">MINI暴力风扇</h3>
-                </div>
-                <p class="product-desc">极致小巧机身，搭载高频无刷电机，风力强劲彪悍。航空铝材金属外壳，质感出色，专为追求极致性能与便携的用户打造。</p>
-                <div class="carousel-wrap">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="images/project4/mini_1.png" alt="产品图1"></div>
-                            <div class="swiper-slide"><img src="images/project4/mini_2.png" alt="产品图2"></div>
-                            <div class="swiper-slide"><img src="images/project4/mini_3.png" alt="产品图3"></div>
-                            <div class="swiper-slide"><img src="images/project4/mini_4.png" alt="产品图4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="index.html" class="back-btn">返回作品集</a>
-            </div>
+        <div class="page-hero reveal">
+            <span class="cat-tag">Mass Production · 04</span>
+            <h1>其他落地项目展示</h1>
+            <p>精选多款已量产消费电子与 IP 授权产品，涵盖个护、车载、家居等多元场景，体现扎实的商业落地与结构设计能力。</p>
         </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">01</span><h2 class="product-title">便携酒精检测仪</h2></div>
+            <p class="product-desc">迷你手持设计，高精度电化学传感器，快速响应；采用极简的交互逻辑，一键测量，结果直观清晰，适合随身携带。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/alcohol_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/alcohol_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/alcohol_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/alcohol_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">02</span><h2 class="product-title">迪士尼车载香薰</h2></div>
+            <p class="product-desc">迪士尼 IP 授权定制车载香薰，萌趣卡通造型与汽车出风口完美结合。多款经典角色，营造沉浸式童话氛围，香气柔和持久。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/car_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/car_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/car_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/car_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">03</span><h2 class="product-title">迪士尼灭蚊灯</h2></div>
+            <p class="product-desc">结合迪士尼元素的室内物理灭蚊灯。采用 UV 紫光引诱与强力涡流吸入设计，无毒无味。外观圆润可爱，兼具实用功能与装饰性。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/mosquito_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mosquito_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mosquito_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mosquito_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">04</span><h2 class="product-title">手持制冷风扇</h2></div>
+            <p class="product-desc">内置半导体制冷技术，不仅能吹风，更能吹出冰爽冷风。极简流线外观搭配金属质感，强风静音，是夏日户外降温利器。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/hand_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/hand_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/hand_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/hand_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">05</span><h2 class="product-title">手持折叠制冷高速风扇</h2></div>
+            <p class="product-desc">在制冷风扇基础上增加多角度折叠功能，可手持亦可桌面使用。高速无刷电机提供强劲风量，折叠结构提升收纳便利性。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/fold_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/fold_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/fold_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/fold_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="product-block reveal">
+            <div class="product-header"><span class="product-index">06</span><h2 class="product-title">MINI 暴力风扇</h2></div>
+            <p class="product-desc">极致小巧机身，搭载高频无刷电机，风力强劲彪悍。航空铝材金属外壳，质感出色，专为追求极致性能与便携的用户打造。</p>
+            <div class="carousel-wrap"><div class="swiper mySwiper"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/project4/mini_1.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mini_2.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mini_3.png" alt="产品图"></div>
+                <div class="swiper-slide"><img src="images/project4/mini_4.png" alt="产品图"></div>
+            </div><div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div></div>
+        </div>
+
+        <div class="back-section reveal"><a href="index.html" class="back-btn"><span class="arrow">←</span> 返回作品集</a></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.mySwiper').forEach((el) => {
-                new Swiper(el, {
-                    loop: true,
-                    grabCursor: true,
-                    slidesPerView: 1,
-                    spaceBetween: 16,
-                    speed: 600,
-                    centeredSlides: true,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                    },
-                    keyboard: { enabled: true },
-                });
+    (function(){
+        'use strict';
+        // 光标
+        var co=document.getElementById('cursorOuter'),ci=document.getElementById('cursorInner');
+        var mx=0,my=0,ox=0,oy=0;
+        document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;ci.style.left=mx+'px';ci.style.top=my+'px';});
+        function ac(){ox+=(mx-ox)*.15;oy+=(my-oy)*.15;co.style.left=ox+'px';co.style.top=oy+'px';requestAnimationFrame(ac);}ac();
+        document.querySelectorAll('a,img,.carousel-wrap,.swiper').forEach(function(el){
+            el.addEventListener('mouseenter',function(){co.classList.add('hovered');});
+            el.addEventListener('mouseleave',function(){co.classList.remove('hovered');});
+        });
+        // 导航+进度
+        var sp=document.getElementById('scroll-progress'),nb=document.getElementById('navbar');
+        window.addEventListener('scroll',function(){
+            var st=window.pageYOffset||document.documentElement.scrollTop;
+            var dh=document.documentElement.scrollHeight-window.innerHeight;
+            sp.style.width=(st/dh*100)+'%';
+            if(st>50)nb.classList.add('scrolled');else nb.classList.remove('scrolled');
+        },{passive:true});
+        // 入场
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+        document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+        // Swiper
+        document.querySelectorAll('.mySwiper').forEach(function(el){
+            new Swiper(el,{
+                loop:true,grabCursor:true,slidesPerView:1,spaceBetween:0,speed:700,
+                centeredSlides:true,
+                autoplay:{delay:3500,disableOnInteraction:false,pauseOnMouseEnter:true},
+                keyboard:{enabled:true},
+                pagination:{el:el.querySelector('.swiper-pagination'),clickable:true},
+                navigation:{nextEl:el.querySelector('.swiper-button-next'),prevEl:el.querySelector('.swiper-button-prev')}
             });
         });
+    })();
     </script>
 </body>
 </html>

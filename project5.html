@@ -6,103 +6,180 @@
     <title>商业渲染展示 · 徐家靖作品集</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F2F3F5; --surface: #fff; --text: #0A0A0A; --text-2: #4B5563;
+            --text-3: #9CA3AF; --accent: #002FA7; --border: rgba(0,0,0,0.06);
+            --border-strong: rgba(0,0,0,0.12); --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+            --ease-out: cubic-bezier(0.16,1,0.3,1);
+        }
         html { scroll-behavior: smooth; }
         body {
-            background-color: #F5F6F8;
-            color: #1a1a1a;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none;
         }
-        a { text-decoration: none; color: inherit; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-
+        @media (max-width:768px){ body{cursor:auto;} }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        @media (max-width:768px){ a{cursor:pointer;} }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        body::before {
+            content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+            pointer-events:none; z-index:9998; opacity:0.035;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .cursor-outer,.cursor-inner { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+        .cursor-outer { width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; transition:width .3s,height .3s,background .3s; }
+        .cursor-inner { width:5px; height:5px; background:var(--accent); border-radius:50%; transition:transform .1s linear; }
+        .cursor-outer.hovered { width:56px; height:56px; background:rgba(0,47,167,.08); }
+        @media(max-width:768px){ .cursor-outer,.cursor-inner{display:none;} }
+        #scroll-progress { position:fixed; top:0; left:0; height:2px; width:0; background:linear-gradient(90deg,var(--accent),#00A8FF); z-index:9999; }
         nav {
-            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
-            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+            position:fixed; top:0; left:0; width:100%; display:flex; justify-content:center;
+            align-items:center; padding:20px 0; z-index:100; transition:padding .4s var(--ease),background .4s,backdrop-filter .4s,border-color .4s;
+            border-bottom:1px solid transparent;
         }
-        .logo { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0; }
-        .logo img { height: 32px; width: auto; display: block; cursor: pointer; }
-        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-
-        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
-
-        .project-container { padding: 60px 40px; border-radius: 24px; margin: 40px 0 80px; }
-
-        .page-header { text-align: center; margin-bottom: 60px; }
-        .page-header h2 { font-size: 42px; font-weight: 700; color: #111827; margin-bottom: 16px; letter-spacing: -1px; }
-        .page-header p { color: #6b7280; max-width: 800px; font-size: 16px; line-height: 1.8; margin: 0 auto; }
-
-        .render-gallery { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-        .render-item { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #e5e7eb; border: 1px solid rgba(0,0,0,0.02); }
-        .render-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .back-btn { display: inline-block; padding: 14px 36px; background: #111; color: #fff; border-radius: 50px; font-size: 15px; transition: 0.3s; text-align: center; }
-        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
-
-        @media (max-width: 768px) {
-            .project-container { padding: 30px 20px; }
-            .logo { left: 20px; }
-            .page-header h2 { font-size: 32px; }
+        nav.scrolled { padding:12px 0; background:rgba(242,243,245,.75); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border-bottom-color:var(--border); }
+        .logo { position:absolute; left:40px; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:10px; line-height:0; }
+        .logo img { height:28px; width:auto; display:block; }
+        .logo-text { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:.5px; }
+        .nav-back {
+            display:inline-flex; align-items:center; gap:8px; padding:10px 24px;
+            background:rgba(255,255,255,.6); backdrop-filter:blur(10px); border:1px solid var(--border);
+            border-radius:100px; font-size:13px; font-weight:500; color:var(--text-2); transition:all .3s;
+        }
+        .nav-back:hover { color:var(--text); border-color:var(--border-strong); background:#fff; transform:translateY(-1px); }
+        .nav-back .arrow { transition:transform .3s; }
+        .nav-back:hover .arrow { transform:translateX(-3px); }
+        /* 页面头部 */
+        .page-hero { padding:140px 0 60px; text-align:center; }
+        .page-hero .cat-tag { display:inline-block; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:16px; }
+        .page-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(36px,6vw,72px); font-weight:700; letter-spacing:-2.5px; line-height:1.05; margin-bottom:20px; }
+        .page-hero p { color:var(--text-2); max-width:720px; font-size:15px; line-height:1.8; margin:0 auto; }
+        .tools-row { display:flex; justify-content:center; gap:12px; margin-top:28px; flex-wrap:wrap; }
+        .tool-tag { padding:6px 16px; background:var(--surface); border:1px solid var(--border); font-size:12px; color:var(--text-2); font-weight:500; transition:all .3s; }
+        .tool-tag:hover { border-color:var(--accent); color:var(--accent); }
+        /* 渲染图库 - 瀑布流交错 */
+        .render-section { padding:40px 0 60px; }
+        .render-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .render-item {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            aspect-ratio: 16/10;
+        }
+        .render-item.wide { grid-column: span 2; aspect-ratio: 21/9; }
+        .render-item img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 0.8s var(--ease-out);
+        }
+        .render-item:hover img { transform: scale(1.04); }
+        .render-item::after {
+            content: '';
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%);
+            opacity: 0; transition: opacity .4s;
+        }
+        .render-item:hover::after { opacity: 1; }
+        .render-num {
+            position: absolute; bottom: 16px; left: 20px;
+            font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+            color: #fff; z-index: 2; opacity: 0; transform: translateY(10px);
+            transition: all .4s;
+        }
+        .render-item:hover .render-num { opacity: 1; transform: translateY(0); }
+        /* 返回 */
+        .back-section { text-align:center; padding:60px 0 80px; border-top:1px solid var(--border); }
+        .back-btn { display:inline-flex; align-items:center; gap:10px; padding:14px 36px; background:var(--text); color:#fff; border-radius:100px; font-size:14px; font-weight:500; transition:all .4s var(--ease); border:1px solid var(--text); }
+        .back-btn:hover { background:var(--accent); border-color:var(--accent); transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,47,167,.3); }
+        .back-btn .arrow { transition:transform .3s; }
+        .back-btn:hover .arrow { transform:translateX(-4px); }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s var(--ease-out),transform .9s var(--ease-out); }
+        .reveal.is-visible { opacity:1; transform:translateY(0); }
+        @media(max-width:768px){
+            .container{padding:0 20px;} .logo{left:20px;} .logo-text{display:none;}
+            .page-hero{padding:100px 0 40px;}
+            .render-grid{grid-template-columns:1fr;gap:12px;}
+            .render-item.wide{grid-column:span 1;aspect-ratio:16/10;}
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo" title="返回首页">
-            <img src="logo.png" alt="徐家靖 Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html">← 返回作品集</a>
-        </div>
+    <div id="scroll-progress"></div>
+    <div class="cursor-outer" id="cursorOuter"></div>
+    <div class="cursor-inner" id="cursorInner"></div>
+    <nav id="navbar">
+        <a href="index.html" class="logo"><img src="logo.png" alt="徐家靖 Logo"></a>
+        <a href="index.html" class="nav-back"><span class="arrow">←</span> 返回作品集</a>
     </nav>
 
     <div class="container">
-        <div class="project-container glass">
-            <div class="page-header">
-                <h2>商业渲染展示</h2>
-                <p>以下渲染内容使用工具 Keyshot + Gemini/GPT/ComfyUI，利用 Keyshot 渲染器以及 AI 工具配合辅助完成，高效、高质完成商用渲染图的输出。</p>
-            </div>
-
-            <div class="render-gallery">
-                <div class="render-item"><img src="images/project5/render_1.png" alt="渲染图1"></div>
-                <div class="render-item"><img src="images/project5/render_2.png" alt="渲染图2"></div>
-                <div class="render-item"><img src="images/project5/render_3.png" alt="渲染图3"></div>
-                <div class="render-item"><img src="images/project5/render_4.png" alt="渲染图4"></div>
-                <div class="render-item"><img src="images/project5/render_5.png" alt="渲染图5"></div>
-                <div class="render-item"><img src="images/project5/render_6.png" alt="渲染图6"></div>
-                <div class="render-item"><img src="images/project5/render_7.png" alt="渲染图7"></div>
-                <div class="render-item"><img src="images/project5/render_8.png" alt="渲染图8"></div>
-                <div class="render-item"><img src="images/project5/render_9.png" alt="渲染图9"></div>
-                <div class="render-item"><img src="images/project5/render_10.png" alt="渲染图10"></div>
-                <div class="render-item"><img src="images/project5/render_11.png" alt="渲染图11"></div>
-                <div class="render-item"><img src="images/project5/render_12.png" alt="渲染图12"></div>
-                <div class="render-item"><img src="images/project5/render_13.png" alt="渲染图13"></div>
-                <div class="render-item"><img src="images/project5/render_14.png" alt="渲染图14"></div>
-                <div class="render-item"><img src="images/project5/render_15.png" alt="渲染图15"></div>
-                <div class="render-item"><img src="images/project5/render_16.png" alt="渲染图16"></div>
-                <div class="render-item"><img src="images/project5/render_17.png" alt="渲染图17"></div>
-                <div class="render-item"><img src="images/project5/render_18.png" alt="渲染图18"></div>
-                <div class="render-item"><img src="images/project5/render_19.png" alt="渲染图19"></div>
-                <div class="render-item"><img src="images/project5/render_20.png" alt="渲染图20"></div>
-                <div class="render-item"><img src="images/project5/render_21.png" alt="渲染图21"></div>
-                <div class="render-item"><img src="images/project5/render_22.png" alt="渲染图22"></div>
-                <div class="render-item"><img src="images/project5/render_23.png" alt="渲染图23"></div>
-                <div class="render-item"><img src="images/project5/render_24.png" alt="渲染图24"></div>
-                <div class="render-item"><img src="images/project5/render_25.png" alt="渲染图25"></div>
-                <div class="render-item"><img src="images/project5/render_26.png" alt="渲染图26"></div>
-                <div class="render-item"><img src="images/project5/render_27.png" alt="渲染图27"></div>
-                <div class="render-item"><img src="images/project5/render_28.png" alt="渲染图28"></div>
-                <div class="render-item"><img src="images/project5/render_29.png" alt="渲染图29"></div>
-                <div class="render-item"><img src="images/project5/render_30.png" alt="渲染图30"></div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="index.html" class="back-btn">返回作品集</a>
+        <div class="page-hero reveal">
+            <span class="cat-tag">Commercial Rendering · 05</span>
+            <h1>商业渲染展示</h1>
+            <p>以下渲染内容使用 KeyShot + Gemini / GPT / ComfyUI 工具链完成，利用 KeyShot 渲染器以及 AI 工具配合辅助，高效、高质完成商用渲染图的输出。</p>
+            <div class="tools-row">
+                <span class="tool-tag">KeyShot</span>
+                <span class="tool-tag">ComfyUI</span>
+                <span class="tool-tag">Gemini</span>
+                <span class="tool-tag">GPT</span>
+                <span class="tool-tag">Photoshop</span>
             </div>
         </div>
+
+        <div class="render-section">
+            <div class="render-grid" id="renderGrid">
+                <!-- JS 动态生成 30 张图，交错布局 -->
+            </div>
+        </div>
+
+        <div class="back-section reveal"><a href="index.html" class="back-btn"><span class="arrow">←</span> 返回作品集</a></div>
     </div>
+
+    <script>
+    (function(){
+        'use strict';
+        // 动态生成渲染图库（交错宽图布局）
+        var grid = document.getElementById('renderGrid');
+        var total = 30;
+        for (var i = 1; i <= total; i++) {
+            var item = document.createElement('div');
+            // 每5张中有1张宽图
+            item.className = 'render-item reveal' + (i % 5 === 0 ? ' wide' : '');
+            item.innerHTML = '<img src="images/project5/render_' + i + '.png" alt="商业渲染图 ' + i + '" loading="lazy"><span class="render-num">/' + String(i).padStart(2,'0') + '</span>';
+            grid.appendChild(item);
+        }
+
+        // 光标
+        var co=document.getElementById('cursorOuter'),ci=document.getElementById('cursorInner');
+        var mx=0,my=0,ox=0,oy=0;
+        document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;ci.style.left=mx+'px';ci.style.top=my+'px';});
+        function ac(){ox+=(mx-ox)*.15;oy+=(my-oy)*.15;co.style.left=ox+'px';co.style.top=oy+'px';requestAnimationFrame(ac);}ac();
+        document.querySelectorAll('a,img,.render-item').forEach(function(el){
+            el.addEventListener('mouseenter',function(){co.classList.add('hovered');});
+            el.addEventListener('mouseleave',function(){co.classList.remove('hovered');});
+        });
+        // 导航+进度
+        var sp=document.getElementById('scroll-progress'),nb=document.getElementById('navbar');
+        window.addEventListener('scroll',function(){
+            var st=window.pageYOffset||document.documentElement.scrollTop;
+            var dh=document.documentElement.scrollHeight-window.innerHeight;
+            sp.style.width=(st/dh*100)+'%';
+            if(st>50)nb.classList.add('scrolled');else nb.classList.remove('scrolled');
+        },{passive:true});
+        // 入场（延迟观察，确保动态元素已生成）
+        setTimeout(function(){
+            var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:.05,rootMargin:'0px 0px -40px 0px'});
+            document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+        }, 100);
+    })();
+    </script>
 </body>
 </html>

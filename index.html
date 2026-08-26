@@ -6,77 +6,252 @@
     <title>徐家靖 · 工业设计作品集</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 重置与基础 --- */
+        /* ============================================================
+           重置与 CSS 变量
+           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F2F3F5;
+            --bg-soft: #E8E9EC;
+            --surface: #FFFFFF;
+            --text: #0A0A0A;
+            --text-2: #4B5563;
+            --text-3: #9CA3AF;
+            --accent: #002FA7;
+            --accent-light: rgba(0,47,167,0.08);
+            --border: rgba(0,0,0,0.06);
+            --border-strong: rgba(0,0,0,0.12);
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
         html { scroll-behavior: smooth; }
         body {
-            background-color: #F5F6F8;
-            color: #1a1a1a;
+            background-color: var(--bg);
+            color: var(--text);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            cursor: none;
         }
-        a { text-decoration: none; color: inherit; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        @media (max-width: 768px) { body { cursor: auto; } }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        @media (max-width: 768px) { a { cursor: pointer; } }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
 
-        /* --- 核心毛玻璃效果 --- */
-        .glass {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
-        }
-
-        /* --- 排版工具与颜色 --- */
-        .section-title { margin-bottom: 40px; }
-        .section-title .sub {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #6b7280;
-            display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
-        }
-        .section-title .sub::before, .section-title .sub::after {
-            content: ''; flex: 1; height: 1px; background: #e5e7eb;
-        }
-        .section-title h2 { font-size: 36px; font-weight: 700; color: #111827; }
-        .section-title p { font-size: 16px; color: #6b7280; margin-top: 8px; }
-
-        /* ================= 鼠标跟随小黑点（小跟班） ================= */
-        .cursor-dot {
+        /* 噪点纹理叠加 */
+        body::before {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 10px;
-            height: 10px;
-            background-color: #000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ============================================================
+           全局动态背景
+           ============================================================ */
+        .global-bg {
+            position: fixed;
+            top: -30%; left: 0;
+            width: 100%; height: 160%;
+            background-color: var(--bg);
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            will-change: transform;
+        }
+        .bg-grid {
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 72px 72px;
+            opacity: 0.35;
+            animation: bgGridMove 50s linear infinite;
+        }
+        @keyframes bgGridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(72px, 72px); }
+        }
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            will-change: transform;
+        }
+        .bg-blob-1 {
+            width: 560px; height: 560px;
+            top: -12%; left: -6%;
+            background: radial-gradient(circle, rgba(0,47,167,0.35) 0%, transparent 70%);
+            animation: blobFloat1 22s ease-in-out infinite;
+        }
+        .bg-blob-2 {
+            width: 460px; height: 460px;
+            top: 35%; right: -8%;
+            background: radial-gradient(circle, rgba(0,100,200,0.3) 0%, transparent 70%);
+            animation: blobFloat2 28s ease-in-out infinite;
+        }
+        .bg-blob-3 {
+            width: 520px; height: 520px;
+            bottom: -12%; left: 28%;
+            background: radial-gradient(circle, rgba(50,30,150,0.25) 0%, transparent 70%);
+            animation: blobFloat3 24s ease-in-out infinite;
+        }
+        @keyframes blobFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(90px, 70px) scale(1.12); }
+            66% { transform: translate(-50px, 110px) scale(0.93); }
+        }
+        @keyframes blobFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-70px, -90px) scale(1.08); }
+            66% { transform: translate(50px, -50px) scale(0.92); }
+        }
+        @keyframes blobFloat3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(70px, -70px) scale(1.1); }
+        }
+
+        /* ============================================================
+           页面加载动画 Preloader
+           ============================================================ */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s var(--ease-out), visibility 0.8s;
+        }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            overflow: hidden;
+        }
+        .preloader-logo span {
+            display: inline-block;
+            transform: translateY(110%);
+            animation: slideUp 0.8s var(--ease-out) forwards;
+        }
+        .preloader-logo span:nth-child(2) { animation-delay: 0.08s; }
+        .preloader-logo span:nth-child(3) { animation-delay: 0.16s; }
+        .preloader-logo span:nth-child(4) { animation-delay: 0.24s; }
+        @keyframes slideUp { to { transform: translateY(0); } }
+        .preloader-bar {
+            width: 200px;
+            height: 2px;
+            background: var(--border-strong);
+            margin-top: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+        .preloader-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            animation: loadBar 1.6s var(--ease-out) forwards;
+        }
+        @keyframes loadBar { to { width: 100%; } }
+        .preloader-text {
+            margin-top: 16px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-3);
+        }
+
+        /* ============================================================
+           滚动进度条
+           ============================================================ */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), #00A8FF);
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* ============================================================
+           自定义光标（双环）
+           ============================================================ */
+        .cursor-outer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--accent);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.8;
-            transition: left 0.05s linear, top 0.05s linear, transform 0.2s;
-            transform: translate(8px, 8px);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s var(--ease), height 0.3s var(--ease),
+                        background 0.3s, border-color 0.3s, opacity 0.3s;
+            mix-blend-mode: normal;
         }
-        a:hover ~ .cursor-dot, a:hover .cursor-dot {
-            transform: translate(8px, 8px) scale(1.5);
+        .cursor-inner {
+            position: fixed;
+            top: 0; left: 0;
+            width: 5px; height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s linear, opacity 0.2s;
+        }
+        .cursor-outer.hovered {
+            width: 56px; height: 56px;
+            background: rgba(0,47,167,0.08);
+            border-color: var(--accent);
+        }
+        .cursor-outer.clicked {
+            width: 24px; height: 24px;
+            background: var(--accent);
+        }
+        @media (max-width: 768px) {
+            .cursor-outer, .cursor-inner { display: none; }
         }
 
-        /* ==================================================== */
-        /* === 导航栏绝对定位居中 === */
-        /* ==================================================== */
+        /* ============================================================
+           导航栏
+           ============================================================ */
         nav {
-            position: sticky; top: 0;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
-            background: rgba(244, 245, 248, 0.5);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 24px 0;
             z-index: 100;
+            transition: padding 0.4s var(--ease), background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+            border-bottom: 1px solid transparent;
+        }
+        nav.scrolled {
+            padding: 14px 0;
+            background: rgba(242,243,245,0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom-color: var(--border);
         }
         .logo {
             position: absolute;
@@ -84,319 +259,1127 @@
             top: 50%;
             transform: translateY(-50%);
             line-height: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .logo img {
-            height: 32px;
+            height: 30px;
             width: auto;
             display: block;
-            cursor: pointer;
+        }
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text);
         }
         .nav-links {
-            display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563;
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-2);
+            position: relative;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            padding: 6px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
         }
-        .nav-links a { position: relative; }
-        .nav-links a:hover { color: #111827; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #002FA7; transition: width 0.4s ease; }
-        .nav-links a:hover::after { width: 100%; }
-        /* ==================================================== */
+        .nav-links a {
+            position: relative;
+            padding: 8px 20px;
+            border-radius: 100px;
+            transition: color 0.3s, background 0.3s;
+            z-index: 1;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active {
+            color: #fff;
+            background: var(--text);
+        }
+        .nav-indicator {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            height: calc(100% - 12px);
+            background: var(--text);
+            border-radius: 100px;
+            transition: transform 0.4s var(--ease-out), width 0.4s var(--ease-out);
+            z-index: 0;
+            opacity: 0;
+        }
+        .nav-indicator.show { opacity: 1; }
 
-        /* ================= 首页 Hero ================= */
-        #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .bg-glow-hero {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100vw; height: 80vh;
-            background: radial-gradient(ellipse at 50% 0%, rgba(0, 47, 167, 0.15) 0%, transparent 60%),
-                        radial-gradient(ellipse at 50% 30%, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
-            filter: blur(80px); z-index: 0; animation: pulseGlow 6s ease-in-out infinite alternate;
+        /* ============================================================
+           Hero 区
+           ============================================================ */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 120px 0 80px;
         }
-        @keyframes pulseGlow { 0% { opacity: 0.7; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.05); } }
-        
-        /* 黑到克莱因蓝的渐变 */
-        .hero-title-large { 
-            font-size: clamp(80px, 12vw, 140px); 
-            font-weight: 900; 
-            letter-spacing: -4px; 
-            line-height: 1; 
-            margin-bottom: 10px; 
-            background: linear-gradient(to right, #000000 0%, #002FA7 100%);
+        /* 动态背景网格 */
+        .hero-grid-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            opacity: 0.6;
+            z-index: 0;
+        }
+        /* 光晕 */
+        .hero-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at 50% 50%, rgba(0,47,167,0.12) 0%, transparent 60%);
+            filter: blur(60px);
+            z-index: 0;
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+        }
+        /* 浮动装饰圆 */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--border-strong);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-orb-1 {
+            width: 300px; height: 300px;
+            top: 15%; right: 8%;
+            animation: floatOrb 12s ease-in-out infinite;
+        }
+        .hero-orb-2 {
+            width: 180px; height: 180px;
+            bottom: 20%; left: 6%;
+            animation: floatOrb 10s ease-in-out infinite reverse;
+        }
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -30px) rotate(180deg); }
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            width: 100%;
+        }
+        .hero-eyebrow {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 0.3s forwards;
+        }
+        .hero-title {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(52px, 10vw, 140px);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 0.95;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+        .hero-title .char {
+            display: inline-block;
+            transform: translateY(110%);
+            animation: charUp 0.9s var(--ease-out) forwards;
+        }
+        .hero-title .line:nth-child(2) .char { animation-delay: calc(0.05s * var(--i) + 0.15s); }
+        .hero-title .line:nth-child(1) .char { animation-delay: calc(0.05s * var(--i)); }
+        @keyframes charUp { to { transform: translateY(0); } }
+
+        .hero-title-gradient {
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .hero-name { font-size: clamp(24px, 3vw, 36px); font-weight: 500; color: #1a1a1a; letter-spacing: 2px; margin-top: -20px; }
-        .hero-desc { max-width: 600px; font-size: 16px; color: #666; line-height: 1.6; margin: 10px 0 30px; text-align: center; }
-        .hero-container { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
-        .btn-group { display: flex; gap: 16px; align-items: center; }
-        .btn { display: inline-block; padding: 14px 36px; border-radius: 50px; font-size: 15px; font-weight: 500; transition: 0.3s; cursor: pointer; text-decoration: none; }
-        .btn-light { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); color: #111; border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); }
-        .btn-light:hover { transform: translateY(-2px) scale(1.02); background: #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
-        .btn-dark { background: #111; color: #fff; border: 1px solid #111; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
-        .btn-dark:hover { transform: translateY(-2px) scale(1.02); background: #2a2a2a; border-color: #2a2a2a; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
-
-        /* ================= 关于我 About ================= */
-        #about { padding: 60px 0 100px; background: #F5F6F8; }
-        .about-layout { display: flex; gap: 60px; align-items: flex-start; }
-        .profile-sidebar { flex: 0 0 340px; position: sticky; top: 100px; align-self: flex-start; padding: 40px 30px; border-radius: 0px; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.7); }
-        .profile-img { width: 100%; max-width: 240px; height: 320px; margin: 0 auto 24px; border-radius: 0px; overflow: hidden; background: #f3f4f6; display: flex; justify-content: center; align-items: center; }
-        .profile-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
-        .profile-sidebar h2 { font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 4px; }
-        .profile-sidebar .title { font-size: 15px; color: #6b7280; margin-bottom: 30px; }
-        .profile-info-list { display: flex; flex-direction: column; gap: 16px; }
-        .profile-info-item { display: flex; justify-content: space-between; font-size: 14px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
-        .profile-info-item .label { color: #9ca3af; font-weight: 500; letter-spacing: 1px; }
-        .profile-info-item .value { color: #1f2937; font-weight: 500; text-align: right; }
-
-        .main-content { flex: 1; display: flex; flex-direction: column; gap: 60px; }
-        .design-philosophy p { color: #4b5563; line-height: 1.8; margin-bottom: 16px; font-size: 15px; }
-        
-        .edu-item { background: #ffffff; padding: 24px 30px; border-radius: 0px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
-        .edu-left h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: #111827; }
-        .edu-left p { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
-        .edu-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .edu-tags span { background: #f3f4f6; color: #4b5563; padding: 4px 12px; border-radius: 0px; font-size: 13px; }
-        .edu-right { font-size: 14px; color: #9ca3af; font-weight: 500; white-space: nowrap; margin-top: 4px; }
-
-        .exp-item { background: #ffffff; padding: 30px; border-radius: 0px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 20px; }
-        .exp-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
-        .exp-header h3 { font-size: 18px; font-weight: 600; color: #111827; }
-        .exp-header .date { font-size: 14px; color: #9ca3af; font-weight: 500; }
-        .exp-role { font-size: 14px; color: #6b7280; margin-bottom: 16px; }
-        .exp-duties { list-style: none; padding-left: 0; color: #4b5563; font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
-        .exp-duties li { position: relative; padding-left: 18px; }
-        .exp-duties li::before { content: "•"; position: absolute; left: 0; color: #002FA7; font-weight: bold; }
-        .exp-achievement { background: rgba(0, 47, 167, 0.04); padding: 12px 16px; border-radius: 0px; border-left: 3px solid #002FA7; color: #374151; font-size: 14px; line-height: 1.6; }
-        .exp-achievement strong { color: #002FA7; font-weight: 600; }
-
-        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .skill-cat { background: #ffffff; padding: 20px 24px; border-radius: 0px; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
-        .skill-cat h4 { font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px; }
-        .skill-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 6px; color: #4b5563; }
-        .skill-bar-track { width: 100%; height: 6px; background: #e5e7eb; border-radius: 0px; overflow: hidden; margin-bottom: 12px; }
-        .skill-bar-fill { height: 100%; background: #002FA7; border-radius: 0px; width: 0%; transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-        /* ==================================================== */
-        /* === 作品集升级：直角边、放大、缩小间距、居中布局 === */
-        /* ==================================================== */
-        #projects { padding: 100px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
-        .grid {
+        .hero-name {
+            font-size: clamp(18px, 2.5vw, 28px);
+            font-weight: 400;
+            color: var(--text-2);
+            letter-spacing: 3px;
+            margin-top: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 0.8s forwards;
+        }
+        .hero-name strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .hero-desc {
+            max-width: 560px;
+            font-size: 15px;
+            color: var(--text-2);
+            line-height: 1.8;
+            margin: 20px 0 36px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 1s forwards;
+        }
+        .btn-group {
             display: flex;
+            gap: 14px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 1.2s forwards;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.4s var(--ease);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-light {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border-strong);
+        }
+        .btn-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            border-color: var(--text);
+        }
+        .btn-dark {
+            background: var(--text);
+            color: #fff;
+            border: 1px solid var(--text);
+        }
+        .btn-dark:hover {
+            transform: translateY(-2px);
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(0,47,167,0.3);
+        }
+        .btn .arrow { transition: transform 0.3s; }
+        .btn:hover .arrow { transform: translateX(4px); }
+
+        /* Hero 数据统计 */
+        .hero-stats {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 1.4s forwards;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+        }
+        .stat-num .plus { color: var(--accent); }
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-top: 6px;
+        }
+
+        /* 滚动指示器 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 1s 1.8s forwards;
+        }
+        .scroll-indicator span {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-3);
+        }
+        .scroll-mouse {
+            width: 22px;
+            height: 36px;
+            border: 1.5px solid var(--text-3);
+            border-radius: 12px;
+            position: relative;
+        }
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 6px;
+            background: var(--text-3);
+            border-radius: 2px;
+            animation: scrollWheel 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollWheel {
+            0% { opacity: 1; transform: translate(-50%, 0); }
+            100% { opacity: 0; transform: translate(-50%, 12px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* ============================================================
+           Section 通用标题
+           ============================================================ */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
             flex-wrap: wrap;
-            justify-content: center;
+            gap: 20px;
+        }
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
             gap: 10px;
+        }
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .section-title {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            color: var(--text);
+        }
+        .section-desc {
+            max-width: 420px;
+            font-size: 14px;
+            color: var(--text-2);
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+           关于我 About
+           ============================================================ */
+        #about {
+            padding: 120px 0;
+            position: relative;
+        }
+        .about-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        /* 个人资料卡 */
+        .profile-card {
+            position: sticky;
+            top: 100px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 32px 28px;
+            transition: transform 0.4s var(--ease), box-shadow 0.4s;
+        }
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+        }
+        .profile-img-wrap {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            margin-bottom: 24px;
+            background: var(--bg-soft);
+            position: relative;
+        }
+        .profile-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out);
+        }
+        .profile-card:hover .profile-img-wrap img { transform: scale(1.04); }
+        .profile-img-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 1px solid var(--border);
+            pointer-events: none;
+        }
+        .profile-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .profile-role {
+            font-size: 13px;
+            color: var(--text-3);
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+        .profile-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+        .profile-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .profile-info-item:last-child { border-bottom: none; }
+        .profile-info-item .label {
+            color: var(--text-3);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .profile-info-item .value {
+            color: var(--text);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* 主内容区 */
+        .about-main { display: flex; flex-direction: column; gap: 72px; }
+
+        .philosophy-text p {
+            color: var(--text-2);
+            line-height: 1.9;
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+        .philosophy-text p:first-child::first-letter {
+            font-family: 'Space Grotesk', serif;
+            font-size: 56px;
+            font-weight: 700;
+            float: left;
+            line-height: 0.8;
+            margin: 4px 12px 0 0;
+            color: var(--accent);
+        }
+
+        /* 经历时间线 */
+        .timeline { position: relative; padding-left: 32px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--border-strong);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 24px 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+        }
+        .timeline-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+            border-color: var(--border-strong);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 32px;
+            width: 15px;
+            height: 15px;
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            z-index: 1;
+            transition: background 0.3s;
+        }
+        .timeline-item:hover::before { background: var(--accent); }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .timeline-header h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .timeline-date {
+            font-size: 12px;
+            color: var(--text-3);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .timeline-role {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .timeline-duties {
+            list-style: none;
+            color: var(--text-2);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .timeline-duties li {
+            position: relative;
+            padding-left: 16px;
+        }
+        .timeline-duties li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        .timeline-achievement {
+            background: var(--accent-light);
+            padding: 12px 16px;
+            border-left: 3px solid var(--accent);
+            color: var(--text-2);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .timeline-achievement strong { color: var(--accent); font-weight: 600; }
+
+        /* 教育经历 */
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 24px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .edu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+        }
+        .edu-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+        .edu-card .gpa { font-size: 13px; color: var(--text-2); margin-bottom: 12px; }
+        .edu-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .edu-tags span {
+            background: var(--bg);
+            color: var(--text-2);
+            padding: 4px 12px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .edu-tags span:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .edu-period {
+            font-size: 12px;
+            color: var(--text-3);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* 技能 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 22px 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .skill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+        }
+        .skill-card h4 {
+            font-size: 12px;
+            color: var(--text-3);
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text-2);
+        }
+        .skill-row span:last-child { color: var(--text); font-weight: 600; }
+        .skill-bar-track {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-soft);
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), #00A8FF);
+            transition: width 1.2s var(--ease-out);
+            position: relative;
+        }
+        .skill-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            width: 20px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6));
+        }
+
+        /* ============================================================
+           作品集 Projects
+           ============================================================ */
+        #projects {
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
         .project-card {
             display: block;
             position: relative;
-            border-radius: 0;
             overflow: hidden;
-            background: #e5e7eb;
-            height: 400px;
-            flex: 0 1 calc(33.333% - 10px);
-            min-width: 340px;
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s;
+            background: var(--bg-soft);
+            aspect-ratio: 4/3;
+            border: 1px solid var(--border);
+            transition: border-color 0.4s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
-        .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.15);
-        }
-        .project-img {
+        .project-card:hover { border-color: var(--border-strong); }
+        .project-card-img {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
+            transition: transform 0.8s var(--ease-out);
         }
-        .project-img img {
+        .project-card-img img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: block;
         }
-        .project-card:hover .project-img img {
-            transform: scale(1.06);
+        .project-card:hover .project-card-img { transform: scale(1.05); }
+        /* 卡片编号 */
+        .project-num {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            z-index: 2;
+            mix-blend-mode: difference;
+            letter-spacing: 1px;
         }
+        /* 卡片遮罩 */
         .project-overlay {
             position: absolute;
             bottom: 0; left: 0;
             width: 100%;
-            padding: 0;
+            padding: 28px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            transform: translateY(30%);
+            opacity: 0;
+            transition: transform 0.5s var(--ease-out), opacity 0.5s;
+            z-index: 2;
         }
-        .overlay-btn {
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .project-cat {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 6px;
+        }
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #fff;
+            font-weight: 500;
+        }
+        .project-link .arrow {
+            width: 28px;
+            height: 28px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .project-card:hover .project-link .arrow {
+            background: #fff;
+            color: var(--text);
+            border-color: #fff;
+            transform: translateX(4px);
+        }
+
+        /* ============================================================
+           联系 Contact
+           ============================================================ */
+        #contact {
+            padding: 120px 0 60px;
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-glow {
+            position: absolute;
+            bottom: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: 40vh;
+            background: radial-gradient(ellipse, rgba(0,47,167,0.08) 0%, transparent 60%);
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-eyebrow {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .contact-big {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(40px, 7vw, 96px);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+        .contact-big .accent { color: var(--accent); }
+        .contact-sub {
+            font-size: 16px;
+            color: var(--text-2);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+        .contact-item {
+            background: var(--bg);
+            padding: 36px 28px;
+            text-align: center;
+            transition: background 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .contact-item:hover { background: var(--surface); }
+        .contact-item:hover::before { transform: scaleX(1); }
+        .contact-item .label {
+            font-size: 10px;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+        .contact-item .value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+            word-break: break-all;
+        }
+        .footer {
+            margin-top: 80px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 22px 28px;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 0;
-            color: #111;
-            font-size: 15px;
-            font-weight: 600;
-            text-align: left;
-            transition: background 0.3s ease;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-3);
+            position: relative;
+            z-index: 1;
         }
-        .btn-title {
-            flex: 1;
-            text-align: left;
+        .footer .back-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-2);
+            transition: color 0.3s;
         }
-        .btn-action {
-            color: #002FA7;
-            font-weight: 700;
-        }
-        .project-card:hover .overlay-btn {
-            background: rgba(255, 255, 255, 0.95);
-        }
+        .footer .back-top:hover { color: var(--accent); }
 
-        /* ================= 联系 Contact ================= */
-        #contact { padding: 100px 0 60px; text-align: center; }
-        .contact-info { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 32px; }
-        .contact-item { padding: 24px 40px; border-radius: 0px; transition: all 0.4s ease; }
-        .contact-item:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.9); }
-        .contact-item .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
-        .contact-item .value { font-size: 18px; font-weight: 500; margin-top: 4px; color: #111827; }
-        .footer-note { margin-top: 60px; font-size: 13px; color: #9ca3af; border-top: 1px solid rgba(0, 0, 0, 0.03); padding-top: 24px; }
+        /* ============================================================
+           滚动入场动画
+           ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
 
-        /* ================= 通用动画 ================= */
-        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
-
-        /* ================= 响应式适配 ================= */
-        @media (max-width: 992px) {
-            .about-layout { flex-direction: column; }
-            .profile-sidebar { position: relative; top: 0; flex: 1; width: 100%; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .project-card { flex: 0 1 calc(50% - 10px); }
+        /* ============================================================
+           响应式
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .about-layout { grid-template-columns: 1fr; gap: 40px; }
+            .profile-card { position: relative; top: 0; max-width: 360px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .bg-glow-hero { width: 100vw; height: 30vh; }
-            .nav-links { display: none; }
+            .container { padding: 0 20px; }
+            nav { padding: 16px 0; }
+            .logo { left: 20px; }
+            .logo-text { display: none; }
+            .nav-links { gap: 0; padding: 4px; }
+            .nav-links a { padding: 6px 12px; font-size: 12px; }
+            #hero { padding: 100px 0 60px; min-height: 90vh; }
+            .hero-title { letter-spacing: -3px; }
+            .hero-stats { gap: 32px; bottom: 50px; }
+            .stat-num { font-size: 28px; }
+            .hero-orb { display: none; }
             .btn-group { flex-direction: column; width: 100%; padding: 0 20px; }
-            .btn { width: 100%; text-align: center; }
-            .edu-item { flex-direction: column; }
-            .exp-header { flex-direction: column; align-items: flex-start; gap: 4px; }
-            .contact-info { flex-direction: column; gap: 24px; align-items: center; }
-            .contact-item { text-align: center; width: 100%; padding: 16px; }
-            .project-card { flex: 0 1 100%; height: 320px; }
-            .cursor-dot { display: none; }
+            .btn { justify-content: center; }
+            #about, #projects, #contact { padding: 80px 0; }
+            .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 40px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .timeline { padding-left: 24px; }
+            .timeline-item::before { left: -24px; }
+            .footer { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <!-- 鼠标跟随小黑点 -->
-    <div class="cursor-dot" id="cursorDot"></div>
+    <!-- 全局动态背景 -->
+    <div class="global-bg" id="globalBg">
+        <div class="bg-grid" id="bgGrid"></div>
+        <div class="bg-blob bg-blob-1" id="bgBlob1"></div>
+        <div class="bg-blob bg-blob-2" id="bgBlob2"></div>
+        <div class="bg-blob bg-blob-3" id="bgBlob3"></div>
+    </div>
+
+    <!-- 页面加载动画 -->
+    <div id="preloader">
+        <div class="preloader-logo">
+            <span>X</span><span>U</span><span>J</span><span>J</span>
+        </div>
+        <div class="preloader-bar"></div>
+        <div class="preloader-text">Loading Portfolio</div>
+    </div>
+
+    <!-- 滚动进度条 -->
+    <div id="scroll-progress"></div>
+
+    <!-- 自定义光标 -->
+    <div class="cursor-outer" id="cursorOuter"></div>
+    <div class="cursor-inner" id="cursorInner"></div>
 
     <!-- ========== 导航栏 ========== -->
-    <nav>
-        <a href="index.html" class="logo" title="返回首页">
+    <nav id="navbar">
+        <a href="#hero" class="logo">
             <img src="logo.png" alt="徐家靖 Logo">
         </a>
-        <div class="nav-links">
-            <a href="#hero">首页</a>
-            <a href="#about">关于我</a>
-            <a href="#projects">作品集</a>
-            <a href="#contact">联系</a>
+        <div class="nav-links" id="navLinks">
+            <div class="nav-indicator" id="navIndicator"></div>
+            <a href="#hero" class="active" data-section="hero">首页</a>
+            <a href="#about" data-section="about">关于</a>
+            <a href="#projects" data-section="projects">作品</a>
+            <a href="#contact" data-section="contact">联系</a>
         </div>
     </nav>
 
+    <!-- ========== Hero ========== -->
     <section id="hero">
-        <div class="bg-glow-hero"></div>
-        <div class="hero-container animate-on-scroll is-visible">
-            <h1 class="hero-title-large">PORTFOLIO</h1>
-            <h2 class="hero-name">徐家靖 · 工业设计师</h2>
-            <p class="hero-desc">专注于消费电子与IP授权产品设计，具备从前期市场调研、ID设计到量产落地的全流程实战经验。</p>
+        <div class="hero-grid-bg"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+
+        <div class="hero-container">
+            <div class="hero-eyebrow">Industrial Designer · Shenzhen</div>
+            <h1 class="hero-title">
+                <span class="line">
+                    <span class="char" style="--i:0">P</span><span class="char" style="--i:1">O</span><span class="char" style="--i:2">R</span><span class="char" style="--i:3">T</span><span class="char" style="--i:4">F</span><span class="char" style="--i:5">O</span><span class="char" style="--i:6">L</span><span class="char" style="--i:7">I</span><span class="char" style="--i:8">O</span>
+                </span>
+                <span class="line hero-title-gradient">
+                    <span class="char" style="--i:0">P</span><span class="char" style="--i:1">O</span><span class="char" style="--i:2">R</span><span class="char" style="--i:3">T</span><span class="char" style="--i:4">F</span><span class="char" style="--i:5">O</span><span class="char" style="--i:6">L</span><span class="char" style="--i:7">I</span><span class="char" style="--i:8">O</span>
+                </span>
+            </h1>
+            <div class="hero-name"><strong>徐家靖</strong> · 工业设计师</div>
+            <p class="hero-desc">专注消费电子与 IP 授权产品设计，具备从市场调研、ID 设计到量产落地的全流程实战经验。</p>
             <div class="btn-group">
+                <a href="#projects" class="btn btn-dark">查看作品 <span class="arrow">→</span></a>
                 <a href="#about" class="btn btn-light">了解我</a>
-                <a href="#projects" class="btn btn-dark">查看作品</a>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num" data-count="3">0</div>
+                <div class="stat-label">Years Exp.</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-count="9">0</div>
+                <div class="stat-label">Mass Production</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-count="30"><span class="plus">+</span></div>
+                <div class="stat-label">Rendering Projects</div>
             </div>
         </div>
     </section>
 
+    <!-- ========== 关于我 ========== -->
     <section id="about">
-        <div class="container about-layout">
-            <aside class="profile-sidebar animate-on-scroll is-visible">
-                <div class="profile-img"><img src="profile.jpg" alt="徐家靖"></div>
-                <h2>徐家靖</h2>
-                <p class="title">产品设计 / 工业设计师</p>
-                <div class="profile-info-list">
-                    <div class="profile-info-item"><span class="label">PHONE</span><span class="value">18084248656</span></div>
-                    <div class="profile-info-item"><span class="label">EMAIL</span><span class="value">2604437203@qq.com</span></div>
-                    <div class="profile-info-item"><span class="label">CITY</span><span class="value">深圳</span></div>
-                    <div class="profile-info-item"><span class="label">EXPERIENCE</span><span class="value">3年</span></div>
-                    <div class="profile-info-item"><span class="label">EDUCATION</span><span class="value">本科</span></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <div>
+                    <div class="section-label">About Me</div>
+                    <h2 class="section-title">用设计连接<br>概念与量产</h2>
                 </div>
-            </aside>
+                <p class="section-desc">三年消费电子类产品设计经验，擅长产品 ID 迭代与新品研发。熟悉 AI 设计工具链，累计完成 30+ 套商业宣发渲染，多款产品实现模具落地并申请外观专利。</p>
+            </div>
 
-            <div class="main-content">
-                <div class="section-title animate-on-scroll is-visible">
-                    <div class="sub"><span>ABOUT ME</span></div>
-                    <h2>关于我</h2>
-                    <p>三年消费电子类产品设计经验，擅长产品 ID 迭代与新品研发。具备从市场调研、概念设计、建模渲染到手板验证、量产落地的全流程推进能力。熟悉 AI 设计工具链，累计完成 30+ 套商业宣发渲染项目，多款产品实现模具落地并申请外观专利。</p>
-                </div>
+            <div class="about-layout">
+                <!-- 个人资料卡 -->
+                <aside class="profile-card reveal">
+                    <div class="profile-img-wrap"><img src="profile.jpg" alt="徐家靖"></div>
+                    <div class="profile-name">徐家靖</div>
+                    <div class="profile-role">Product / Industrial Designer</div>
+                    <div class="profile-divider"></div>
+                    <div class="profile-info-item"><span class="label">Phone</span><span class="value">180 8424 8656</span></div>
+                    <div class="profile-info-item"><span class="label">Email</span><span class="value">2604437203@qq.com</span></div>
+                    <div class="profile-info-item"><span class="label">City</span><span class="value">深圳 · Shenzhen</span></div>
+                    <div class="profile-info-item"><span class="label">Experience</span><span class="value">3 年</span></div>
+                    <div class="profile-info-item"><span class="label">Education</span><span class="value">本科 · 南华大学</span></div>
+                </aside>
 
-                <div class="animate-on-scroll">
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">教育经历</h3>
-                    <div class="edu-item glass">
-                        <div class="edu-left">
-                            <h3>南华大学 · 产品设计 · 本科</h3>
-                            <p>GPA 3.28（专业前10%）</p>
-                            <div class="edu-tags">
-                                <span>产品形态设计 (优秀)</span>
-                                <span>创意产品设计 (优秀)</span>
-                                <span>人机工程学 (优秀)</span>
-                                <span>产品创新与研发 (良好)</span>
+                <!-- 主内容 -->
+                <div class="about-main">
+                    <!-- 设计理念 -->
+                    <div class="philosophy-text reveal">
+                        <p>我相信好的工业设计不是炫技，而是在用户需求、制造工艺与商业价值之间找到最优雅的平衡点。每一条曲线、每一个分模面、每一处按键手感，都应该经过反复推敲。</p>
+                        <p>从概念草图到量产落地，我享受整个设计推演的过程——用 Rhino 构建精确的曲面，用 KeyShot 呈现产品的质感与情绪，再用 ComfyUI 等 AI 工具加速创意探索。设计于我，是理性与感性的交织。</p>
+                    </div>
+
+                    <!-- 工作经历 -->
+                    <div class="reveal">
+                        <div class="section-label" style="margin-bottom: 24px;">Experience</div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-header">
+                                    <h3>墨子科技股份有限公司（台企）</h3>
+                                    <span class="timeline-date">2025.03 — 2026.09</span>
+                                </div>
+                                <div class="timeline-role">工业设计师 · 消费电子</div>
+                                <ul class="timeline-duties">
+                                    <li>产品 ID 迭代设计，负责现有爆款产品的外观升级与改版；</li>
+                                    <li>新品项目开发，从概念呈现、3D 建模到渲染出图的全流程设计；</li>
+                                    <li>跟踪项目实现量产落地，对接工厂，跟进模具与手板；</li>
+                                    <li>产品宣传渲染图渲染，输出高质量商业宣发图。</li>
+                                </ul>
+                                <div class="timeline-achievement"><strong>成果：</strong>完成 2 款爆款产品的 ID 迭代升级；研发设计 2 款产品并全程对接工厂实现落地量产；商业宣发渲染项目达 30+ 套。</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-header">
+                                    <h3>鑫喜实业有限公司</h3>
+                                    <span class="timeline-date">2024.01 — 2025.01</span>
+                                </div>
+                                <div class="timeline-role">产品设计师 · 消费电子</div>
+                                <ul class="timeline-duties">
+                                    <li>公司新品研发设计，包括前期市场调研、中期建模渲染出图、后期结构跟进；</li>
+                                    <li>手板测试、模具跟进，确保设计方案可制造性；</li>
+                                    <li>产品详情页设计制作，配合电商上架。</li>
+                                </ul>
+                                <div class="timeline-achievement"><strong>成果：</strong>所设计 7 款新品成功模具落地上市，国内外均有售卖；多款产品成功申请外观设计专利；完成迪士尼、三丽鸥、哆啦A梦等 IP 品牌送审授权。</div>
                             </div>
                         </div>
-                        <div class="edu-right">2019.08 - 2023.06</div>
                     </div>
-                </div>
 
-                <div class="animate-on-scroll">
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">工作经历</h3>
-                    <div class="exp-item glass">
-                        <div class="exp-header"><h3>墨子科技股份有限公司（台企）</h3><span class="date">2025.03 - 2026.09</span></div>
-                        <div class="exp-role">工业设计师 · 消费电子</div>
-                        <ul class="exp-duties">
-                            <li>产品 ID 迭代设计，负责现有爆款产品的外观升级与改版；</li>
-                            <li>新品项目开发，从概念呈现、3D 建模到渲染出图的全流程设计；</li>
-                            <li>跟踪项目实现量产落地，对接工厂，跟进模具与手板；</li>
-                            <li>产品宣传渲染图渲染，输出高质量商业宣发图。</li>
-                        </ul>
-                        <div class="exp-achievement"><strong>成果：</strong>完成 2 款爆款产品的 ID 迭代升级，销售增长；研发设计 2 款产品，全程对接工厂实现落地量产；商业宣发渲染项目达 30+ 套。</div>
+                    <!-- 教育经历 -->
+                    <div class="reveal">
+                        <div class="section-label" style="margin-bottom: 24px;">Education</div>
+                        <div class="edu-card">
+                            <div>
+                                <h3>南华大学 · 产品设计 · 本科</h3>
+                                <p class="gpa">GPA 3.28（专业前 10%）</p>
+                                <div class="edu-tags">
+                                    <span>产品形态设计 · 优秀</span>
+                                    <span>创意产品设计 · 优秀</span>
+                                    <span>人机工程学 · 优秀</span>
+                                    <span>产品创新与研发 · 良好</span>
+                                </div>
+                            </div>
+                            <span class="edu-period">2019.08 — 2023.06</span>
+                        </div>
                     </div>
-                    <div class="exp-item glass">
-                        <div class="exp-header"><h3>鑫喜实业有限公司</h3><span class="date">2024.01 - 2025.01</span></div>
-                        <div class="exp-role">产品设计师 · 消费电子</div>
-                        <ul class="exp-duties">
-                            <li>公司新品研发设计，包括前期市场调研、中期建模渲染出图、后期结构跟进；</li>
-                            <li>手板测试、模具跟进，确保设计方案可制造性；</li>
-                            <li>产品详情页设计制作，配合电商上架。</li>
-                        </ul>
-                        <div class="exp-achievement"><strong>成果：</strong>所设计了 7 款新品成功模具落地上市，国内外均有售卖；多款产品成功申请外观设计专利；完成迪士尼、三丽鸥、哆啦A梦等IP品牌送审授权。</div>
-                    </div>
-                </div>
 
-                <div class="animate-on-scroll">
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #111827;">专业技能</h3>
-                    <div class="skills-grid">
-                        <div class="skill-cat">
-                            <h4>三维建模</h4>
-                            <div class="skill-row"><span>Rhino</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
-                            <div class="skill-row"><span>Creo</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="80%"></div></div>
-                        </div>
-                        <div class="skill-cat">
-                            <h4>渲染表现</h4>
-                            <div class="skill-row"><span>KeyShot</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
-                            <div class="skill-row"><span>Blender</span><span>70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="70%"></div></div>
-                        </div>
-                        <div class="skill-cat">
-                            <h4>平面设计</h4>
-                            <div class="skill-row"><span>Photoshop</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="90%"></div></div>
-                            <div class="skill-row"><span>Illustrator</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="80%"></div></div>
-                        </div>
-                        <div class="skill-cat">
-                            <h4>AI 设计</h4>
-                            <div class="skill-row"><span>ComfyUI</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="85%"></div></div>
-                            <div class="skill-row"><span>Gemini / GPT</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width: 0%;" data-width="85%"></div></div>
+                    <!-- 专业技能 -->
+                    <div class="reveal">
+                        <div class="section-label" style="margin-bottom: 24px;">Skills</div>
+                        <div class="skills-grid">
+                            <div class="skill-card">
+                                <h4>三维建模</h4>
+                                <div class="skill-row"><span>Rhino</span><span>90%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+                                <div class="skill-row"><span>Creo</span><span>80%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+                            </div>
+                            <div class="skill-card">
+                                <h4>渲染表现</h4>
+                                <div class="skill-row"><span>KeyShot</span><span>90%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+                                <div class="skill-row"><span>Blender</span><span>70%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70%"></div></div>
+                            </div>
+                            <div class="skill-card">
+                                <h4>平面设计</h4>
+                                <div class="skill-row"><span>Photoshop</span><span>90%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+                                <div class="skill-row"><span>Illustrator</span><span>80%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+                            </div>
+                            <div class="skill-card">
+                                <h4>AI 设计工具</h4>
+                                <div class="skill-row"><span>ComfyUI</span><span>85%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+                                <div class="skill-row"><span>GPT / Gemini</span><span>85%</span></div>
+                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -404,100 +1387,323 @@
         </div>
     </section>
 
+    <!-- ========== 作品集 ========== -->
     <section id="projects">
         <div class="container">
-            <h2 class="section-title animate-on-scroll" style="text-align: center; border-left: none; padding-left: 0;">
-                <div class="sub" style="justify-content: center;"><span>SELECTED PROJECTS</span></div><p style="margin-top:0;">项目展示</p>
-            </h2>
-            <div class="grid">
-                <a href="project1.html" class="project-card glass animate-on-scroll delay-1">
-                    <div class="project-img"><img src="images/image (21).png" alt="太空舱充电宝"></div>
-                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">太空舱模块化充电宝</span><span class="btn-action">查看详情 &rarr;</span></div></div>
+            <div class="section-header reveal">
+                <div>
+                    <div class="section-label">Selected Works</div>
+                    <h2 class="section-title">精选项目</h2>
+                </div>
+                <p class="section-desc">从概念到量产，每一个项目都是一次完整的设计推演。点击查看详情。</p>
+            </div>
+
+            <div class="projects-grid">
+                <a href="project1.html" class="project-card reveal reveal-delay-1">
+                    <div class="project-num">01</div>
+                    <div class="project-card-img"><img src="images/image (21).png" alt="太空舱模块化充电宝"></div>
+                    <div class="project-overlay">
+                        <div class="project-cat">Consumer Electronics</div>
+                        <div class="project-title">太空舱模块化充电宝</div>
+                        <div class="project-link">查看详情 <span class="arrow">→</span></div>
+                    </div>
                 </a>
-                <!-- 项目二：名称已修改为 YEEZY潮流便携剃须刀 -->
-                <a href="project2.html" class="project-card glass animate-on-scroll delay-2">
-                    <div class="project-img"><img src="images/image (22).png" alt="YEEZY剃须刀"></div>
-                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">YEEZY潮流便携剃须刀</span><span class="btn-action">查看详情 &rarr;</span></div></div>
+                <a href="project2.html" class="project-card reveal reveal-delay-2">
+                    <div class="project-num">02</div>
+                    <div class="project-card-img"><img src="images/image (22).png" alt="YEEZY潮流便携剃须刀"></div>
+                    <div class="project-overlay">
+                        <div class="project-cat">Personal Care</div>
+                        <div class="project-title">YEEZY 潮流便携剃须刀</div>
+                        <div class="project-link">查看详情 <span class="arrow">→</span></div>
+                    </div>
                 </a>
-                <a href="project3.html" class="project-card glass animate-on-scroll delay-3">
-                    <div class="project-img"><img src="images/image (23).png" alt="磁吸暖手宝"></div>
-                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">磁吸暖手宝</span><span class="btn-action">查看详情 &rarr;</span></div></div>
+                <a href="project3.html" class="project-card reveal reveal-delay-3">
+                    <div class="project-num">03</div>
+                    <div class="project-card-img"><img src="images/image (23).png" alt="磁吸暖手宝"></div>
+                    <div class="project-overlay">
+                        <div class="project-cat">Consumer Electronics</div>
+                        <div class="project-title">磁吸暖手宝</div>
+                        <div class="project-link">查看详情 <span class="arrow">→</span></div>
+                    </div>
                 </a>
-                <a href="project4.html" class="project-card glass animate-on-scroll delay-1">
-                    <div class="project-img"><img src="images/image (24).png" alt="其他落地项目展示"></div>
-                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">其他落地项目展示</span><span class="btn-action">查看详情 &rarr;</span></div></div>
+                <a href="project4.html" class="project-card reveal reveal-delay-1">
+                    <div class="project-num">04</div>
+                    <div class="project-card-img"><img src="images/image (24).png" alt="其他落地项目展示"></div>
+                    <div class="project-overlay">
+                        <div class="project-cat">Mass Production</div>
+                        <div class="project-title">其他落地项目展示</div>
+                        <div class="project-link">查看详情 <span class="arrow">→</span></div>
+                    </div>
                 </a>
-                <a href="project5.html" class="project-card glass animate-on-scroll delay-2">
-                    <div class="project-img"><img src="images/image (25).png" alt="商业渲染展示"></div>
-                    <div class="project-overlay"><div class="overlay-btn"><span class="btn-title">商业渲染展示</span><span class="btn-action">查看详情 &rarr;</span></div></div>
+                <a href="project5.html" class="project-card reveal reveal-delay-2">
+                    <div class="project-num">05</div>
+                    <div class="project-card-img"><img src="images/image (25).png" alt="商业渲染展示"></div>
+                    <div class="project-overlay">
+                        <div class="project-cat">Commercial Rendering</div>
+                        <div class="project-title">商业渲染展示</div>
+                        <div class="project-link">查看详情 <span class="arrow">→</span></div>
+                    </div>
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- ========== 联系 ========== -->
     <section id="contact">
+        <div class="contact-glow"></div>
         <div class="container">
-            <h2 class="section-title animate-on-scroll" style="text-align: center; border-left: none; padding-left: 0;">
-                <div class="sub" style="justify-content: center;"><span>GET IN TOUCH</span></div><p style="margin-top:0;">联系方式</p>
-            </h2>
-            <div class="contact-info">
-                <div class="contact-item glass animate-on-scroll delay-1"><div class="label">联系电话</div><div class="value">180 8424 8656</div></div>
-                <div class="contact-item glass animate-on-scroll delay-2"><div class="label">电子邮箱</div><div class="value">2604437203@qq.com</div></div>
-                <div class="contact-item glass animate-on-scroll delay-3"><div class="label">意向城市</div><div class="value">广东 · 深圳</div></div>
-                <div class="contact-item glass animate-on-scroll delay-4"><div class="label">期望薪资</div><div class="value">15K+</div></div>
+            <div class="contact-hero reveal">
+                <div class="contact-eyebrow">Get In Touch</div>
+                <h2 class="contact-big">Let's create<br><span class="accent">something great.</span></h2>
+                <p class="contact-sub">如果你有项目合作意向，或只是想聊聊设计，欢迎随时联系我。</p>
             </div>
-            <div class="footer-note">© 2026 徐家靖 · Designed with Minimalism</div>
+
+            <div class="contact-grid reveal">
+                <div class="contact-item">
+                    <div class="label">Phone</div>
+                    <div class="value">180 8424 8656</div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">Email</div>
+                    <div class="value">2604437203@qq.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">Location</div>
+                    <div class="value">广东 · 深圳</div>
+                </div>
+                <div class="contact-item">
+                    <div class="label">Salary</div>
+                    <div class="value">15K+</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <span>© 2026 徐家靖 · Designed with precision.</span>
+                <a href="#hero" class="back-top">返回顶部 ↑</a>
+            </div>
         </div>
     </section>
 
     <script>
-        // 鼠标“小跟班”跟随效果 (保留原生鼠标)
-        document.addEventListener('DOMContentLoaded', function() {
-            const cursorDot = document.getElementById('cursorDot');
-            document.addEventListener('mousemove', function(e) {
-                requestAnimationFrame(() => {
-                    cursorDot.style.left = e.clientX + 'px';
-                    cursorDot.style.top = e.clientY + 'px';
-                });
-            });
+    (function() {
+        'use strict';
 
-            const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-tag');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => cursorDot.classList.add('hovered'));
-                el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovered'));
-            });
+        /* ============================================================
+           0. 全局动态背景视差（鼠标 + 滚动）
+           ============================================================ */
+        var globalBg = document.getElementById('globalBg');
+        var bgMouseX = 0, bgMouseY = 0;
+        document.addEventListener('mousemove', function(e) {
+            bgMouseX = (e.clientX / window.innerWidth - 0.5);
+            bgMouseY = (e.clientY / window.innerHeight - 0.5);
+        });
+        function updateBgParallax() {
+            if (globalBg) {
+                var st = window.pageYOffset || document.documentElement.scrollTop;
+                globalBg.style.transform = 'translate(' + (bgMouseX * 18) + 'px, ' + (bgMouseY * 18 + st * 0.06) + 'px)';
+            }
+            requestAnimationFrame(updateBgParallax);
+        }
+        updateBgParallax();
+
+        /* ============================================================
+           1. 页面加载动画
+           ============================================================ */
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 1800);
         });
 
-        // 平滑滚动与入场动画
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+        /* ============================================================
+           3. 自定义光标（双环 + 惯性跟随）
+           ============================================================ */
+        var cursorOuter = document.getElementById('cursorOuter');
+        var cursorInner = document.getElementById('cursorInner');
+        var mouseX = 0, mouseY = 0;
+        var outerX = 0, outerY = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorInner.style.left = mouseX + 'px';
+            cursorInner.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            outerX += (mouseX - outerX) * 0.15;
+            outerY += (mouseY - outerY) * 0.15;
+            cursorOuter.style.left = outerX + 'px';
+            cursorOuter.style.top = outerY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // hover 可交互元素
+        var hoverables = document.querySelectorAll('a, button, .project-card, .skill-card, .timeline-item, .edu-card, .profile-card, .contact-item');
+        hoverables.forEach(function(el) {
+            el.addEventListener('mouseenter', function() { cursorOuter.classList.add('hovered'); });
+            el.addEventListener('mouseleave', function() { cursorOuter.classList.remove('hovered'); });
+        });
+        // 点击效果
+        document.addEventListener('mousedown', function() { cursorOuter.classList.add('clicked'); });
+        document.addEventListener('mouseup', function() { cursorOuter.classList.remove('clicked'); });
+
+        /* ============================================================
+           4. 滚动进度条 + 导航栏状态
+           ============================================================ */
+        var scrollProgress = document.getElementById('scroll-progress');
+        var navbar = document.getElementById('navbar');
+        var sections = document.querySelectorAll('section[id]');
+        var navLinks = document.querySelectorAll('.nav-links a');
+
+        function onScroll() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var progress = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+
+            // 导航栏滚动样式
+            if (scrollTop > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // 当前 section 高亮
+            var current = '';
+            sections.forEach(function(section) {
+                var sectionTop = section.offsetTop - 120;
+                if (scrollTop >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        /* ============================================================
+           5. 平滑滚动
+           ============================================================ */
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+                var target = document.querySelector(href);
+                if (target) {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if(targetId && targetId !== '#') {
-                        const target = document.querySelector(targetId);
-                        if(target) target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
-            const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                        const fills = entry.target.querySelectorAll('.skill-bar-fill');
-                        fills.forEach(fill => {
-                            const targetWidth = fill.getAttribute('data-width');
-                            if(targetWidth) {
-                                setTimeout(() => { fill.style.width = targetWidth; }, 300);
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
         });
+
+        /* ============================================================
+           6. 滚动入场动画 (IntersectionObserver)
+           ============================================================ */
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+
+                    // 技能条动画
+                    var fills = entry.target.querySelectorAll('.skill-bar-fill');
+                    fills.forEach(function(fill) {
+                        var w = fill.getAttribute('data-width');
+                        if (w) setTimeout(function() { fill.style.width = w; }, 200);
+                    });
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            revealObserver.observe(el);
+        });
+
+        /* ============================================================
+           7. 数字计数动画
+           ============================================================ */
+        var counted = false;
+        var statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !counted) {
+                    counted = true;
+                    document.querySelectorAll('.stat-num[data-count]').forEach(function(el) {
+                        var target = parseInt(el.getAttribute('data-count'));
+                        var duration = 1500;
+                        var start = 0;
+                        var startTime = null;
+                        function step(timestamp) {
+                            if (!startTime) startTime = timestamp;
+                            var progress = Math.min((timestamp - startTime) / duration, 1);
+                            var eased = 1 - Math.pow(1 - progress, 3);
+                            var current = Math.floor(eased * target);
+                            // 保留 plus 符号
+                            var plus = el.querySelector('.plus');
+                            if (plus) {
+                                el.innerHTML = current + '<span class="plus">+</span>';
+                            } else {
+                                el.textContent = current;
+                            }
+                            if (progress < 1) requestAnimationFrame(step);
+                        }
+                        requestAnimationFrame(step);
+                    });
+                    statsObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+        var heroStats = document.querySelector('.hero-stats');
+        if (heroStats) statsObserver.observe(heroStats);
+
+        /* ============================================================
+           8. 项目卡片 3D Tilt 效果
+           ============================================================ */
+        document.querySelectorAll('.project-card').forEach(function(card) {
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                var rotateX = (y - centerY) / centerY * -6;
+                var rotateY = (x - centerX) / centerX * 6;
+                card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+            card.addEventListener('mouseenter', function() {
+                card.style.transition = 'transform 0.1s linear';
+            });
+        });
+
+        /* ============================================================
+           9. Hero 视差（鼠标移动）
+           ============================================================ */
+        var heroGlow = document.querySelector('.hero-glow');
+        var heroOrbs = document.querySelectorAll('.hero-orb');
+        document.getElementById('hero').addEventListener('mousemove', function(e) {
+            var rect = this.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width - 0.5;
+            var y = (e.clientY - rect.top) / rect.height - 0.5;
+            if (heroGlow) {
+                heroGlow.style.transform = 'translateX(calc(-50% + ' + (x * 40) + 'px)) translateY(' + (y * 30) + 'px)';
+            }
+            heroOrbs.forEach(function(orb, i) {
+                var factor = (i + 1) * 15;
+                orb.style.transform = 'translate(' + (x * factor) + 'px, ' + (y * factor) + 'px)';
+            });
+        });
+
+    })();
     </script>
 </body>
 </html>

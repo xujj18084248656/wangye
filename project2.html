@@ -6,139 +6,200 @@
     <title>YEEZY潮流便携剃须刀 · 徐家靖作品集</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F2F3F5; --surface: #fff; --text: #0A0A0A; --text-2: #4B5563;
+            --text-3: #9CA3AF; --accent: #002FA7; --border: rgba(0,0,0,0.06);
+            --border-strong: rgba(0,0,0,0.12); --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+            --ease-out: cubic-bezier(0.16,1,0.3,1);
+        }
         html { scroll-behavior: smooth; }
         body {
-            background-color: #F5F6F8;
-            color: #1a1a1a;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none;
         }
-        a { text-decoration: none; color: inherit; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
+        @media (max-width:768px){ body{cursor:auto;} }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        @media (max-width:768px){ a{cursor:pointer;} }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+        body::before {
+            content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+            pointer-events:none; z-index:9998; opacity:0.035;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .cursor-outer,.cursor-inner { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+        .cursor-outer { width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; transition:width .3s,height .3s,background .3s; }
+        .cursor-inner { width:5px; height:5px; background:var(--accent); border-radius:50%; transition:transform .1s linear; }
+        .cursor-outer.hovered { width:56px; height:56px; background:rgba(0,47,167,.08); }
+        @media(max-width:768px){ .cursor-outer,.cursor-inner{display:none;} }
+        #scroll-progress { position:fixed; top:0; left:0; height:2px; width:0; background:linear-gradient(90deg,var(--accent),#00A8FF); z-index:9999; }
         nav {
-            position: sticky; top: 0; padding: 20px 0; display: flex; justify-content: center; align-items: center;
-            background: rgba(244, 245, 248, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.8); z-index: 100;
+            position:fixed; top:0; left:0; width:100%; display:flex; justify-content:center;
+            align-items:center; padding:20px 0; z-index:100; transition:padding .4s var(--ease),background .4s,backdrop-filter .4s,border-color .4s;
+            border-bottom:1px solid transparent;
         }
-        .logo { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); line-height: 0; }
-        .logo img { height: 32px; width: auto; display: block; cursor: pointer; }
-        .nav-links { display: flex; gap: 40px; font-size: 14px; font-weight: 500; color: #4b5563; }
-
-        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04); }
-
-        .fullscreen-cover { width: 100%; height: 100vh; background: #e5e7eb; overflow: hidden; }
-        .fullscreen-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .featured-project { padding: 60px 40px; border-radius: 24px; margin: 80px 0; }
-        .featured-project h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 10px; }
-        .featured-project .sub-desc { color: #6b7280; max-width: 650px; margin-bottom: 40px; font-size: 16px; line-height: 1.6; }
-
-        .feature-row { display: flex; gap: 40px; align-items: center; margin-bottom: 40px; flex-wrap: wrap; }
-        .feature-row.reverse { flex-direction: row-reverse; }
-        .feature-img { flex: 1; min-width: 300px; height: 320px; border-radius: 16px; overflow: hidden; background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
-        .feature-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .feature-img:hover img { transform: scale(1.03); }
-        .feature-text { flex: 1; min-width: 250px; }
-        .feature-text h4 { font-size: 22px; font-weight: 600; margin-bottom: 12px; color: #1a1a1a; }
-        .feature-text p { font-size: 15px; color: #4b5563; line-height: 1.8; }
-
-        .full-width-img { width: 100%; height: 420px; border-radius: 16px; overflow: hidden; margin-bottom: 40px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
-        .full-width-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .full-width-img:hover img { transform: scale(1.02); }
-
-        .gallery-title { font-size: 24px; font-weight: 600; margin: 50px 0 24px; color: #1a1a1a; }
-        .gallery-grid { display: flex; flex-direction: column; gap: 24px; margin-bottom: 50px; width: 100%; }
-        .gallery-item { width: 100%; height: 460px; border-radius: 16px; overflow: hidden; background: #e5e7eb; border: 1px solid rgba(0,0,0,0.02); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-        .gallery-item:hover img { transform: scale(1.02); }
-
-        .back-btn { display: inline-block; padding: 14px 36px; background: #111; color: #fff; border-radius: 50px; font-size: 15px; transition: 0.3s; margin-top: 20px; }
-        .back-btn:hover { background: #2a2a2a; transform: scale(1.02); }
-        
-        @media (max-width: 768px) {
-            .fullscreen-cover { height: 60vh; }
-            .featured-project { padding: 30px 20px; margin: 40px 0; }
-            .feature-row { flex-direction: column; height: auto; }
-            .feature-row.reverse { flex-direction: column; }
-            .feature-img { height: 240px; width: 100%; }
-            .full-width-img { height: 240px; }
-            .gallery-item { height: 260px; }
-            .logo { left: 20px; }
+        nav.scrolled { padding:12px 0; background:rgba(242,243,245,.75); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border-bottom-color:var(--border); }
+        .logo { position:absolute; left:40px; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:10px; line-height:0; }
+        .logo img { height:28px; width:auto; display:block; }
+        .logo-text { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:.5px; }
+        .nav-back {
+            display:inline-flex; align-items:center; gap:8px; padding:10px 24px;
+            background:rgba(255,255,255,.6); backdrop-filter:blur(10px); border:1px solid var(--border);
+            border-radius:100px; font-size:13px; font-weight:500; color:var(--text-2); transition:all .3s;
+        }
+        .nav-back:hover { color:var(--text); border-color:var(--border-strong); background:#fff; transform:translateY(-1px); }
+        .nav-back .arrow { transition:transform .3s; }
+        .nav-back:hover .arrow { transform:translateX(-3px); }
+        .fullscreen-cover { position:relative; width:100%; height:100vh; overflow:hidden; background:#e5e7eb; }
+        .fullscreen-cover img { width:100%; height:100%; object-fit:cover; display:block; will-change:transform; }
+        .cover-overlay { position:absolute; bottom:0; left:0; width:100%; padding:60px 40px 80px; background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%); z-index:2; }
+        .cover-cat { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:12px; }
+        .cover-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(32px,6vw,72px); font-weight:700; color:#fff; letter-spacing:-2px; line-height:1.05; }
+        .cover-scroll { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:6px; }
+        .cover-scroll span { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.6); }
+        .cover-scroll .mouse { width:20px; height:32px; border:1.5px solid rgba(255,255,255,.5); border-radius:10px; position:relative; }
+        .cover-scroll .mouse::after { content:''; position:absolute; top:5px; left:50%; transform:translateX(-50%); width:3px; height:5px; background:rgba(255,255,255,.6); border-radius:2px; animation:sw 1.8s ease-in-out infinite; }
+        @keyframes sw { 0%{opacity:1;transform:translate(-50%,0);} 100%{opacity:0;transform:translate(-50%,10px);} }
+        .project-info { padding:80px 0 40px; }
+        .project-info-inner { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+        .project-meta h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:700; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+        .project-meta .cat-tag { display:inline-block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:16px; }
+        .project-desc { font-size:15px; color:var(--text-2); line-height:1.8; }
+        .project-specs { display:flex; flex-direction:column; gap:0; }
+        .spec-row { display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--border); font-size:13px; }
+        .spec-row:first-child { border-top:1px solid var(--border); }
+        .spec-row .label { color:var(--text-3); text-transform:uppercase; letter-spacing:1px; font-size:11px; }
+        .spec-row .value { color:var(--text); font-weight:500; text-align:right; }
+        .feature-section { padding:40px 0; }
+        .feature-row { display:flex; gap:48px; align-items:center; margin-bottom:60px; flex-wrap:wrap; }
+        .feature-row.reverse { flex-direction:row-reverse; }
+        .feature-img { flex:1; min-width:300px; aspect-ratio:4/3; overflow:hidden; background:var(--bg); border:1px solid var(--border); }
+        .feature-img img { width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease-out); }
+        .feature-img:hover img { transform:scale(1.05); }
+        .feature-text { flex:1; min-width:280px; }
+        .feature-text .num { font-family:'Space Grotesk',sans-serif; font-size:14px; color:var(--accent); font-weight:600; margin-bottom:8px; }
+        .feature-text h4 { font-size:22px; font-weight:600; margin-bottom:14px; color:var(--text); }
+        .feature-text p { font-size:15px; color:var(--text-2); line-height:1.8; }
+        .full-width-img { width:100%; aspect-ratio:16/7; overflow:hidden; margin:40px 0 60px; background:var(--bg); border:1px solid var(--border); }
+        .full-width-img img { width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease-out); }
+        .full-width-img:hover img { transform:scale(1.03); }
+        .gallery-section { padding:40px 0 80px; }
+        .gallery-title { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; margin-bottom:8px; }
+        .gallery-sub { font-size:14px; color:var(--text-3); margin-bottom:32px; }
+        .gallery-grid { display:flex; flex-direction:column; gap:20px; }
+        .gallery-item { width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--bg); border:1px solid var(--border); }
+        .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease-out); }
+        .gallery-item:hover img { transform:scale(1.03); }
+        .back-section { text-align:center; padding:40px 0 80px; }
+        .back-btn { display:inline-flex; align-items:center; gap:10px; padding:14px 36px; background:var(--text); color:#fff; border-radius:100px; font-size:14px; font-weight:500; transition:all .4s var(--ease); border:1px solid var(--text); }
+        .back-btn:hover { background:var(--accent); border-color:var(--accent); transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,47,167,.3); }
+        .back-btn .arrow { transition:transform .3s; }
+        .back-btn:hover .arrow { transform:translateX(-4px); }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s var(--ease-out),transform .9s var(--ease-out); }
+        .reveal.is-visible { opacity:1; transform:translateY(0); }
+        .reveal-delay-1{transition-delay:.1s;} .reveal-delay-2{transition-delay:.2s;} .reveal-delay-3{transition-delay:.3s;}
+        @media(max-width:1024px){ .project-info-inner{grid-template-columns:1fr;gap:32px;} }
+        @media(max-width:768px){
+            .container{padding:0 20px;} .logo{left:20px;} .logo-text{display:none;}
+            .fullscreen-cover{height:70vh;} .cover-overlay{padding:40px 20px 60px;}
+            .feature-row,.feature-row.reverse{flex-direction:column;} .feature-img{width:100%;}
+            .project-info{padding:50px 0 20px;} .gallery-item{aspect-ratio:4/3;}
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo" title="返回首页">
-            <img src="logo.png" alt="徐家靖 Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html">← 返回作品集</a>
-        </div>
+    <div id="scroll-progress"></div>
+    <div class="cursor-outer" id="cursorOuter"></div>
+    <div class="cursor-inner" id="cursorInner"></div>
+    <nav id="navbar">
+        <a href="index.html" class="logo"><img src="logo.png" alt="徐家靖 Logo"></a>
+        <a href="index.html" class="nav-back"><span class="arrow">←</span> 返回作品集</a>
     </nav>
-
-    <div class="fullscreen-cover">
-        <img src="images/project2/image (1).png" alt="YEEZY剃须刀全屏封面">
+    <div class="fullscreen-cover" id="cover">
+        <img src="images/project2/image (1).png" alt="YEEZY剃须刀" id="coverImg">
+        <div class="cover-overlay">
+            <div class="cover-cat">Personal Care · 02</div>
+            <h1 class="cover-title">YEEZY 潮流便携剃须刀</h1>
+        </div>
+        <div class="cover-scroll"><span>Scroll</span><div class="mouse"></div></div>
     </div>
-
     <div class="container">
-        <div class="featured-project glass">
-            <!-- 修改点：标题改为 YEEZY潮流便携剃须刀 -->
-            <h2>YEEZY潮流便携剃须刀</h2>
-            <p class="sub-desc">将街头潮流与精密电动剃须相结合。基于 YEEZY 美学下的创新个护产品，模块化结构配合挂绳设计，让剃须更潮、更自由。</p>
-            
-            <div class="project-media-grid">
-                <div class="feature-row">
-                    <div class="feature-img"><img src="images/project2/image (2).png" alt="包袋挂载图"></div>
-                    <div class="feature-text">
-                        <h4>潮流穿搭美学</h4>
-                        <p>独特的胶囊形态，灵感源自黑胶唱片与潮流配饰。集成背夹与可拆卸挂绳设计，可轻松挂载于任何包袋、腰带或作为潮流项链，出行即是时尚单品。</p>
-                    </div>
+        <div class="project-info reveal">
+            <div class="project-info-inner">
+                <div class="project-meta">
+                    <span class="cat-tag">Project Overview</span>
+                    <h1>街头潮流与精密剃须的跨界融合</h1>
+                    <p class="project-desc">基于 YEEZY 美学下的创新个护产品，模块化结构配合挂绳设计，让剃须更潮、更自由。从潮流配饰到精密个护，重新定义便携剃须刀。</p>
                 </div>
-                <div class="feature-row reverse">
-                    <div class="feature-img"><img src="images/project2/image (3).png" alt="功能挂载图"></div>
-                    <div class="feature-text">
-                        <h4>模块化磁吸卡扣</h4>
-                        <p>采用精致的卡扣与磁吸触点方案，实现了机身与刀头模组的便捷拆装。不仅方便日常深度清洁，也为后续更换刀头模组提供了极高的扩展性。</p>
-                    </div>
-                </div>
-                <div class="full-width-img">
-                    <img src="images/project2/image (4).png" alt="场景展示宽图">
-                </div>
-                <div class="feature-row">
-                    <div class="feature-img"><img src="images/project2/image (5).png" alt="双肩包挂载图"></div>
-                    <div class="feature-text">
-                        <h4>极致便携与百搭</h4>
-                        <p>不受限于使用场景，无论是户外骑行、日常通勤还是旅行，挂在背包或腰带上丝毫不显累赘。随时随地，一拉即用，将个护工具的便捷性发挥到极致。</p>
-                    </div>
-                </div>
-                <div class="feature-row reverse">
-                    <div class="feature-img"><img src="images/project2/image (6).png" alt="潮流穿搭图"></div>
-                    <div class="feature-text">
-                        <h4>严苛的工业落地</h4>
-                        <p>从 3D 打印手板的结构推敲到最终高精度注塑成型，黑白双色高质感工艺。严谨的工程验证与供应链把控，确保了产品拥有优秀的触感和耐用品质。</p>
-                    </div>
-                </div>
-
-                <h3 class="gallery-title">多角度场景与产品细节展示</h3>
-                <div class="gallery-grid">
-                    <div class="gallery-item"><img src="images/project2/image (7).png" alt="拆解结构图1"></div>
-                    <div class="gallery-item"><img src="images/project2/image (8).png" alt="产品白底图"></div>
-                    <div class="gallery-item"><img src="images/project2/image (9).png" alt="拆解结构图2"></div>
-                    <div class="gallery-item"><img src="images/project2/image (10).png" alt="3D打印手板图"></div>
-                    <div class="gallery-item"><img src="images/project2/image (11).png" alt="包装盒图"></div>
-                    <div class="gallery-item"><img src="images/project2/image (12).png" alt="3D打印细节图"></div>
-                    <div class="gallery-item"><img src="images/project2/image (13).png" alt="黑白对比图"></div>
-                </div>
-
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="index.html" class="back-btn">返回作品集</a>
+                <div class="project-specs">
+                    <div class="spec-row"><span class="label">Category</span><span class="value">个护 / 便携剃须刀</span></div>
+                    <div class="spec-row"><span class="label">Role</span><span class="value">工业设计 · 全流程</span></div>
+                    <div class="spec-row"><span class="label">Tools</span><span class="value">Rhino / KeyShot / PS</span></div>
+                    <div class="spec-row"><span class="label">Status</span><span class="value">已量产落地</span></div>
+                    <div class="spec-row"><span class="label">Feature</span><span class="value">模块化磁吸 / 挂绳</span></div>
                 </div>
             </div>
         </div>
+        <div class="feature-section">
+            <div class="feature-row reveal">
+                <div class="feature-img"><img src="images/project2/image (2).png" alt="潮流穿搭美学"></div>
+                <div class="feature-text"><div class="num">01</div><h4>潮流穿搭美学</h4><p>独特的胶囊形态，灵感源自黑胶唱片与潮流配饰。集成背夹与可拆卸挂绳设计，可轻松挂载于任何包袋、腰带或作为潮流项链，出行即是时尚单品。</p></div>
+            </div>
+            <div class="feature-row reverse reveal">
+                <div class="feature-img"><img src="images/project2/image (3).png" alt="模块化磁吸卡扣"></div>
+                <div class="feature-text"><div class="num">02</div><h4>模块化磁吸卡扣</h4><p>采用精致的卡扣与磁吸触点方案，实现了机身与刀头模组的便捷拆装。不仅方便日常深度清洁，也为后续更换刀头模组提供了极高的扩展性。</p></div>
+            </div>
+            <div class="full-width-img reveal"><img src="images/project2/image (4).png" alt="场景展示"></div>
+            <div class="feature-row reveal">
+                <div class="feature-img"><img src="images/project2/image (5).png" alt="极致便携"></div>
+                <div class="feature-text"><div class="num">03</div><h4>极致便携与百搭</h4><p>不受限于使用场景，无论是户外骑行、日常通勤还是旅行，挂在背包或腰带上丝毫不显累赘。随时随地，一拉即用，将个护工具的便捷性发挥到极致。</p></div>
+            </div>
+            <div class="feature-row reverse reveal">
+                <div class="feature-img"><img src="images/project2/image (6).png" alt="工业落地"></div>
+                <div class="feature-text"><div class="num">04</div><h4>严苛的工业落地</h4><p>从 3D 打印手板的结构推敲到最终高精度注塑成型，黑白双色高质感工艺。严谨的工程验证与供应链把控，确保了产品拥有优秀的触感和耐用品质。</p></div>
+            </div>
+        </div>
+        <div class="gallery-section">
+            <h2 class="gallery-title reveal">多角度场景与产品细节</h2>
+            <p class="gallery-sub reveal">Gallery · 产品渲染与场景展示</p>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal"><img src="images/project2/image (7).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (8).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (9).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (10).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (11).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (12).png" alt="展示图"></div>
+                <div class="gallery-item reveal"><img src="images/project2/image (13).png" alt="展示图"></div>
+            </div>
+        </div>
+        <div class="back-section reveal"><a href="index.html" class="back-btn"><span class="arrow">←</span> 返回作品集</a></div>
     </div>
+    <script>
+    (function(){
+        'use strict';
+        var co=document.getElementById('cursorOuter'),ci=document.getElementById('cursorInner');
+        var mx=0,my=0,ox=0,oy=0;
+        document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;ci.style.left=mx+'px';ci.style.top=my+'px';});
+        function ac(){ox+=(mx-ox)*.15;oy+=(my-oy)*.15;co.style.left=ox+'px';co.style.top=oy+'px';requestAnimationFrame(ac);}ac();
+        document.querySelectorAll('a,img,.gallery-item,.feature-img,.full-width-img').forEach(function(el){
+            el.addEventListener('mouseenter',function(){co.classList.add('hovered');});
+            el.addEventListener('mouseleave',function(){co.classList.remove('hovered');});
+        });
+        var sp=document.getElementById('scroll-progress'),nb=document.getElementById('navbar');
+        window.addEventListener('scroll',function(){
+            var st=window.pageYOffset||document.documentElement.scrollTop;
+            var dh=document.documentElement.scrollHeight-window.innerHeight;
+            sp.style.width=(st/dh*100)+'%';
+            if(st>50)nb.classList.add('scrolled');else nb.classList.remove('scrolled');
+            var ci=document.getElementById('coverImg');
+            if(ci&&st<window.innerHeight){ci.style.transform='translateY('+(st*0.3)+'px) scale(1.05)';}
+        },{passive:true});
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+        document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+    })();
+    </script>
 </body>
 </html>
