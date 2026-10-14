@@ -326,7 +326,6 @@
             overflow: hidden;
             padding: 120px 0 80px;
         }
-        /* 动态背景网格 */
         .hero-grid-bg {
             position: absolute;
             top: 0; left: 0;
@@ -340,7 +339,6 @@
             opacity: 0.6;
             z-index: 0;
         }
-        /* 光晕 */
         .hero-glow {
             position: absolute;
             top: -10%;
@@ -357,7 +355,6 @@
             0% { transform: translateX(-50%) scale(1); opacity: 0.7; }
             100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
         }
-        /* 浮动装饰圆 */
         .hero-orb {
             position: absolute;
             border-radius: 50%;
@@ -494,7 +491,6 @@
         .btn .arrow { transition: transform 0.3s; }
         .btn:hover .arrow { transform: translateX(4px); }
 
-        /* Hero 数据统计 */
         .hero-stats {
             position: absolute;
             bottom: 50px;
@@ -523,7 +519,6 @@
             margin-top: 6px;
         }
 
-        /* 滚动指示器 */
         .scroll-indicator {
             position: absolute;
             bottom: 20px;
@@ -629,7 +624,6 @@
             gap: 60px;
             align-items: start;
         }
-        /* 个人资料卡 */
         .profile-card {
             position: sticky;
             top: 100px;
@@ -705,7 +699,6 @@
             text-align: right;
         }
 
-        /* 主内容区 */
         .about-main { display: flex; flex-direction: column; gap: 72px; }
 
         .philosophy-text p {
@@ -724,7 +717,6 @@
             color: var(--accent);
         }
 
-        /* 经历时间线 */
         .timeline { position: relative; padding-left: 32px; }
         .timeline::before {
             content: '';
@@ -819,7 +811,6 @@
         }
         .timeline-achievement strong { color: var(--accent); font-weight: 600; }
 
-        /* 教育经历 */
         .edu-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -858,7 +849,6 @@
             white-space: nowrap;
         }
 
-        /* 技能 */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -950,7 +940,6 @@
             display: block;
         }
         .project-card:hover .project-card-img { transform: scale(1.05); }
-        /* 卡片编号 */
         .project-num {
             position: absolute;
             top: 20px;
@@ -963,7 +952,6 @@
             mix-blend-mode: difference;
             letter-spacing: 1px;
         }
-        /* 卡片遮罩 */
         .project-overlay {
             position: absolute;
             bottom: 0; left: 0;
@@ -1069,18 +1057,21 @@
             margin: 0 auto;
             line-height: 1.7;
         }
+        /* ========== 核心修改：联系信息 3 列居中排版 ========== */
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1px;
             background: var(--border);
             border: 1px solid var(--border);
             position: relative;
             z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .contact-item {
             background: var(--bg);
-            padding: 36px 28px;
+            padding: 40px 28px;
             text-align: center;
             transition: background 0.4s;
             position: relative;
@@ -1105,7 +1096,7 @@
             margin-bottom: 10px;
         }
         .contact-item .value {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             color: var(--text);
             word-break: break-all;
@@ -1303,7 +1294,7 @@
                             <div class="timeline-item">
                                 <div class="timeline-header">
                                     <h3>墨子科技股份有限公司（台企）</h3>
-                                    <span class="timeline-date">2025.03 — 2026.09</span>
+                                    <span class="timeline-date">2025.03 — 至今</span>
                                 </div>
                                 <div class="timeline-role">工业设计师 · 消费电子</div>
                                 <ul class="timeline-duties">
@@ -1458,6 +1449,7 @@
                 <p class="contact-sub">如果你有项目合作意向，或只是想聊聊设计，欢迎随时联系我。</p>
             </div>
 
+            <!-- 核心修改：删除了期望薪资，保持3列居中排版 -->
             <div class="contact-grid reveal">
                 <div class="contact-item">
                     <div class="label">Phone</div>
@@ -1470,10 +1462,6 @@
                 <div class="contact-item">
                     <div class="label">Location</div>
                     <div class="value">广东 · 深圳</div>
-                </div>
-                <div class="contact-item">
-                    <div class="label">Salary</div>
-                    <div class="value">15K+</div>
                 </div>
             </div>
 
@@ -1563,14 +1551,12 @@
             var progress = (scrollTop / docHeight) * 100;
             scrollProgress.style.width = progress + '%';
 
-            // 导航栏滚动样式
             if (scrollTop > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
 
-            // 当前 section 高亮
             var current = '';
             sections.forEach(function(section) {
                 var sectionTop = section.offsetTop - 120;
@@ -1612,7 +1598,6 @@
                     entry.target.classList.add('is-visible');
                     revealObserver.unobserve(entry.target);
 
-                    // 技能条动画
                     var fills = entry.target.querySelectorAll('.skill-bar-fill');
                     fills.forEach(function(fill) {
                         var w = fill.getAttribute('data-width');
@@ -1637,14 +1622,12 @@
                     document.querySelectorAll('.stat-num[data-count]').forEach(function(el) {
                         var target = parseInt(el.getAttribute('data-count'));
                         var duration = 1500;
-                        var start = 0;
                         var startTime = null;
                         function step(timestamp) {
                             if (!startTime) startTime = timestamp;
                             var progress = Math.min((timestamp - startTime) / duration, 1);
                             var eased = 1 - Math.pow(1 - progress, 3);
                             var current = Math.floor(eased * target);
-                            // 保留 plus 符号
                             var plus = el.querySelector('.plus');
                             if (plus) {
                                 el.innerHTML = current + '<span class="plus">+</span>';
